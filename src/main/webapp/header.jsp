@@ -64,7 +64,9 @@
         $.getJSON("categoryServlet.action", {method: "findAll"}, function (data) {
             $(".navbar-nav").empty();
             $.each(data, function (i, category) {
-                var aLi = "<li><a>" + category.cname + "</a></li>";
+                var aLi = $("<li><a></a></li>");
+                var url = "productServlet.action?method=findCategory&cid=" + category.cid;
+                aLi.find("a").text(category.cname).attr("href", url);
                 $(".navbar-nav").append(aLi);
             });
         });

@@ -5,7 +5,12 @@ import com.bzchao.mystore.entity.Product;
 import java.util.List;
 
 public interface ProductService {
+
+    int getCountAll();
+
+    int getCountByCid(String cid);
+
     List<Product> findHot();
 
-    List<Product> findPage(int start, int count);
+    List<Product> findByCidPage(String pid, int page, int cout);
 }

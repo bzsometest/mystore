@@ -6,7 +6,7 @@
 <mapper namespace="com.bzchao.mystore.dao.ProductDao">
 
     <sql id="allCols">
-    pid,pname,market_price,shop_price, pimage,pdate,is_hot, pdesc,pflag
+         pid,pname,market_price,shop_price, pimage,pdate,is_hot, pdesc,pflag,cid
     </sql>
 
     <resultMap id="productMap" type="Product">
@@ -15,11 +15,31 @@
         <result property="isHot" column="is_hot"></result>
     </resultMap>
 
-    <select id="findHot" resultType="Product">
+    <select id="findHot" resultMap="productMap">
         select
         <include refid="allCols"/>
         from product where is_hot = '1'
         limit 0,9
     </select>
 
+    <select id="findByCidLimit" resultMap="productMap">
+        select
+        <include refid="allCols"/>
+        from product
+        where cid = ${param1}
+        limit ${param2}, ${param3}
+    </select>
+
+    <select id="getCountAll" resultType="int">
+        select
+        count(pid)
+        from product
+    </select>
+
+    <select id="getCountByCid" parameterType="String" resultType="int">
+        select
+        count(pid)
+        from product
+        where  cid = ${cid}
+    </select>
 </mapper>

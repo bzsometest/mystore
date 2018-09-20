@@ -12,6 +12,7 @@ public class Product {
     private Integer isHot;
     private String pdesc;
     private Integer pflag;
+    private String cid;
 
     public String getPid() {
         return pid;
@@ -85,6 +86,14 @@ public class Product {
         this.pflag = pflag;
     }
 
+    public String getCid() {
+        return cid;
+    }
+
+    public void setCid(String cid) {
+        this.cid = cid;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -101,6 +110,7 @@ public class Product {
         if (isHot != null ? !isHot.equals(that.isHot) : that.isHot != null) return false;
         if (pdesc != null ? !pdesc.equals(that.pdesc) : that.pdesc != null) return false;
         if (pflag != null ? !pflag.equals(that.pflag) : that.pflag != null) return false;
+        if (cid != null ? !cid.equals(that.cid) : that.cid != null) return false;
 
         return true;
     }
@@ -116,6 +126,7 @@ public class Product {
         result = 31 * result + (isHot != null ? isHot.hashCode() : 0);
         result = 31 * result + (pdesc != null ? pdesc.hashCode() : 0);
         result = 31 * result + (pflag != null ? pflag.hashCode() : 0);
+        result = 31 * result + (cid != null ? cid.hashCode() : 0);
         return result;
     }
 }

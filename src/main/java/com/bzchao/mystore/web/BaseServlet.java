@@ -36,7 +36,7 @@ public class BaseServlet extends HttpServlet {
 
             if (view != null) {
                 //是否有redirect:字符串
-                if (view.contains("c")) {
+                if (view.contains(REDIRECT)) {
                     //redirect:login.jsp
                     //重定向
                     resp.sendRedirect(view.replaceAll(REDIRECT, ""));
