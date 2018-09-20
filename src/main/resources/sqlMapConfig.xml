@@ -12,6 +12,7 @@
     <typeAliases>
         <typeAlias type="com.bzchao.mystore.entity.User" alias="User"/>
         <typeAlias type="com.bzchao.mystore.entity.Category" alias="Category"/>
+        <typeAlias type="com.bzchao.mystore.entity.Product" alias="Product"/>
     </typeAliases>
 
     <!-- 配置mybatis的环境信息 -->
@@ -33,5 +34,6 @@
     <mappers>
         <mapper resource="mapper/UserMapper.xml"/>
         <mapper resource="mapper/CategoryMapper.xml"/>
+        <mapper resource="mapper/ProductMapper.xml"/>
     </mappers>
 </configuration>
