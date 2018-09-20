@@ -26,8 +26,8 @@
         select
         <include refid="allCols"/>
         from product
-        where cid = ${param1}
-        limit ${param2}, ${param3}
+        where cid = #{param1}
+        limit #{param2},#{param3}
     </select>
 
     <select id="getCountAll" resultType="int">
@@ -40,6 +40,6 @@
         select
         count(pid)
         from product
-        where  cid = ${cid}
+        where  cid = #{cid}
     </select>
 </mapper>

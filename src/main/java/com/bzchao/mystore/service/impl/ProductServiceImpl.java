@@ -55,7 +55,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Test
     public void testFindHot() {
-        int list = new ProductServiceImpl().getCountByCid("1");
+        List<Product> list = new ProductServiceImpl().findByCidPage("1", 1, 6);
         System.out.println(list);
     }
 }
