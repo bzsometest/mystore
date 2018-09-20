@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 配置命名空间，区别名称 -->
+<mapper namespace="com.bzchao.mystore.dao.UserDao">
+
+    <sql id="allCols">
+ uid,username,password, name,email,telephone, birthday, sex, state,code
+    </sql>
+
+    <select id="findByUsername" parameterType="String" resultType="User">
+        select
+        <include refid="allCols"/>
+        from user where username = #{username}
+    </select>
+
+    <select id="login" parameterType="User" resultType="User">
+        select
+        <include refid="allCols"/>
+        from user where username = #{username} and password = #{password}
+    </select>
+
+    <insert id="save" parameterType="User">
+        insert into
+        user
+        (<include refid="allCols"/>)
+        values
+        (#{uid}, #{username},#{password}, #{name}, #{email},#{telephone},#{birthday}, #{sex}, #{state}, #{code} )
+    </insert>
+
+    <update id="updateState" parameterType="String">
+        update user set state = 1 , code = null where code = #{code}
+    </update>
+
+</mapper>

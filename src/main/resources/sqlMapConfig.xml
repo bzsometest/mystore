@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <!-- 通过properties标签，读取java配置文件的内容 -->
+    <!--与顺序有关，这行配置必须在第一行-->
+    <properties resource="dbconfig.properties"/>
+
+    <!-- 起别名 -->
+    <typeAliases>
+        <typeAlias type="com.bzchao.mystore.entity.User" alias="User"/>
+        <typeAlias type="com.bzchao.mystore.entity.Category" alias="Category"/>
+    </typeAliases>
+
+    <!-- 配置mybatis的环境信息 -->
+    <environments default="development">
+        <environment id="development">
+            <!-- 配置JDBC事务控制，由mybatis进行管理 -->
+            <transactionManager type="JDBC"></transactionManager>
+            <!-- 配置数据源，采用dbcp连接池 -->
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driverClass}"/>
+                <property name="url" value="${jdbc.jdbcUrl}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!-- 映射文件mapper -->
+    <mappers>
+        <mapper resource="mapper/UserMapper.xml"/>
+        <mapper resource="mapper/CategoryMapper.xml"/>
+    </mappers>
+</configuration>
