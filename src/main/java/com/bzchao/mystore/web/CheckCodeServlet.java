@@ -20,6 +20,7 @@ import java.util.Random;
 public class CheckCodeServlet extends HttpServlet {
     private static final long serialVersionUID = 3038623696184546092L;
 
+    public static final String CHECK_CODE_NAME = "checkCode";
     public static final int WIDTH = 120;//生成的图片的宽度
     public static final int HEIGHT = 30;//生成的图片的高度
 
@@ -46,7 +47,7 @@ public class CheckCodeServlet extends HttpServlet {
         //String random = drawRandomNum((Graphics2D) g,"l");//生成纯字母的验证码图片
         String random = drawRandomNum((Graphics2D) g, createTypeFlag);//根据客户端传递的createTypeFlag标识生成验证码图片
         //7.将随机数存在session中
-        request.getSession().setAttribute("checkCode", random);
+        request.getSession().setAttribute(CHECK_CODE_NAME, random);
         //8.设置响应头通知浏览器以图片的形式打开
         response.setContentType("image/jpeg");//等同于response.setHeader("Content-Type", "image/jpeg");
         //9.设置响应头控制浏览器不要缓存
