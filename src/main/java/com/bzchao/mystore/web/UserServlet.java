@@ -90,7 +90,7 @@ public class UserServlet extends BaseServlet {
             resp.addCookie(cookie);
         }
 
-        req.getSession().setAttribute("username", newUser.getName());
+        req.getSession().setAttribute("user", user);
         return REDIRECT + "index.jsp";
     }
 

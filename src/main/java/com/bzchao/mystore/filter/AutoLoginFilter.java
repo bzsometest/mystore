@@ -1,5 +1,7 @@
 package com.bzchao.mystore.filter;
 
+import com.bzchao.mystore.entity.User;
+import com.bzchao.mystore.service.impl.UserServiceImpl;
 import com.bzchao.mystore.utils.CookieUtils;
 
 import javax.mail.Session;
@@ -22,8 +24,8 @@ public class AutoLoginFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         HttpSession session = httpRequest.getSession();
-        String username = (String) session.getAttribute("username");
-        if (username == null) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
             Cookie usernameCookie = CookieUtils.getCookie("username", httpRequest.getCookies());
 
             if (usernameCookie == null) {
@@ -31,8 +33,10 @@ public class AutoLoginFilter implements Filter {
                 httpResponse.sendRedirect(httpRequest.getContextPath() + "/login.jsp");
                 return;
             }
-            username = usernameCookie.getValue();
-            session.setAttribute("username", username);
+
+            String username = usernameCookie.getValue();
+            user = new UserServiceImpl().findByUsername(username);
+            session.setAttribute("user", user);
         }
         chain.doFilter(request, response);
     }
