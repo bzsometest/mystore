@@ -1,8 +1,10 @@
 package com.bzchao.mystore.web;
 
 import com.alibaba.fastjson.JSON;
+import com.bzchao.mystore.entity.Category;
 import com.bzchao.mystore.entity.PageBean;
 import com.bzchao.mystore.entity.Product;
+import com.bzchao.mystore.service.impl.CategoryServiceImpl;
 import com.bzchao.mystore.service.impl.ProductServiceImpl;
 
 import javax.servlet.annotation.WebServlet;
@@ -24,7 +26,9 @@ public class ProductServlet extends BaseServlet {
     public String findByPid(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String pid = request.getParameter("pid");
         Product product = new ProductServiceImpl().findByPid(pid);
+        Category category = new CategoryServiceImpl().findByCid(product.getCid());
         request.setAttribute("product", product);
+        request.setAttribute("productCategory", category);
         return "product_info";
     }
 
