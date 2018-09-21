@@ -40,9 +40,11 @@ public class BaseServlet extends HttpServlet {
                     //redirect:login.jsp
                     //重定向
                     resp.sendRedirect(view.replaceAll(REDIRECT, ""));
+                    return;
                 } else {
                     //请求转发
                     req.getRequestDispatcher("/" + view + ".jsp").forward(req, resp);
+                    return;
                 }
             }
 
@@ -52,8 +54,12 @@ public class BaseServlet extends HttpServlet {
             req.getRequestDispatcher("/info.jsp").forward(req, resp);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
+            resp.sendRedirect("http://www.bzchao.com/404.htm");
         } catch (InvocationTargetException e) {
             e.printStackTrace();
+            resp.sendRedirect("http://www.bzchao.com/404.htm");
+        } catch (Exception e) {
+            resp.sendRedirect("http://www.bzchao.com/404.htm");
         }
     }
 }
