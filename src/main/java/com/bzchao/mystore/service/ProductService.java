@@ -13,4 +13,6 @@ public interface ProductService {
     List<Product> findHot();
 
     List<Product> findByCidPage(String pid, int page, int cout);
+
+    Product findByPid(String pid);
 }

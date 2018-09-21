@@ -76,13 +76,14 @@
         </div>
         <div class="col-md-10">
             <div class="col-md-6" style="text-align:center;height:200px;padding:0px;">
-                <a href="product_info.htm">
+                <a href="product_info.jsp">
                     <img src="products/hao/middle01.jpg" width="516px" height="200px" style="display: inline-block;">
                 </a>
             </div>
 
+            <%--某一个商品--%>
             <div class="product_hot_item col-md-2" style="text-align:center;height:200px;padding:10px 0px;">
-                <a class="product_image" href="product_info.htm">
+                <a class="product_image" href="product_info.jsp">
                     <img src="products/hao/small03.jpg" width="130" height="130" style="display: inline-block;">
                 </a>
                 <p><a class="product_name" href="product_info.html" style='color:#666'>正在加载商品列表</a></p>
@@ -107,6 +108,7 @@
                 product_hot_item.find(".product_image img").attr("src", product.pimage);
                 product_hot_item.find(".product_name").text(product.pname);
                 product_hot_item.find(".product_price").text(product.marketPrice);
+                product_hot_item.find("a").attr("href", "productServlet.action?method=findByPid&pid=" + product.pid);
                 product_hot_content.append(product_hot_item);
             });
         });

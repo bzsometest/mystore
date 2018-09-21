@@ -39,10 +39,10 @@
 
     <c:forEach items="${pageBean.list}" var="product">
         <div class="col-md-2">
-            <a href="#">
+            <a href="productServlet.action?method=findByPid&pid=${product.pid}">
                 <img src="${product.pimage}" width="170" height="170" style="display: inline-block;">
             </a>
-            <p><a href="product_info.html" style='color:green'>${product.pname}</a></p>
+            <p><a href="productServlet.action?method=findByPid&pid=${product.pid}" style='color:green'>${product.pname}</a></p>
             <p><span color="#FF0000">商城价：&yen;${product.marketPrice}</span></p>
         </div>
     </c:forEach>

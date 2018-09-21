@@ -129,4 +129,20 @@ public class Product {
         result = 31 * result + (cid != null ? cid.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "pid='" + pid + '\'' +
+                ", pname='" + pname + '\'' +
+                ", marketPrice=" + marketPrice +
+                ", shopPrice=" + shopPrice +
+                ", pimage='" + pimage + '\'' +
+                ", pdate=" + pdate +
+                ", isHot=" + isHot +
+                ", pdesc='" + pdesc + '\'' +
+                ", pflag=" + pflag +
+                ", cid='" + cid + '\'' +
+                '}';
+    }
 }

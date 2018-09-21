@@ -11,9 +11,16 @@
 
     <resultMap id="productMap" type="Product">
         <result property="marketPrice" column="market_price"></result>
-        <result property="marketPrice" column="market_price"></result>
+        <result property="shopPrice" column="shop_price"></result>
         <result property="isHot" column="is_hot"></result>
     </resultMap>
+
+    <select id="findByPid" parameterType="String" resultMap="productMap">
+        select
+        <include refid="allCols"/>
+        from product
+        where pid = #{pid}
+    </select>
 
     <select id="findHot" resultMap="productMap">
         select

@@ -13,4 +13,6 @@ public interface ProductDao {
     List<Product> findHot();
 
     List<Product> findByCidLimit(String pid, int start, int count);
+
+    Product findByPid(String pid);
 }

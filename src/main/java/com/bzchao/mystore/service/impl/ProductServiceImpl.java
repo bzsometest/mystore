@@ -53,9 +53,19 @@ public class ProductServiceImpl implements ProductService {
         return productList;
     }
 
+    @Override
+    public Product findByPid(String pid) {
+        SqlSession sqlSession = MybatisUtil.getSessionFactory().openSession();
+        ProductDao productDao = sqlSession.getMapper(ProductDao.class);
+        Product product = productDao.findByPid(pid);
+        sqlSession.close();
+        return product;
+    }
+
     @Test
     public void testFindHot() {
-        List<Product> list = new ProductServiceImpl().findByCidPage("1", 1, 6);
+        Product list = new ProductServiceImpl().findByPid("1");
         System.out.println(list);
     }
+
 }

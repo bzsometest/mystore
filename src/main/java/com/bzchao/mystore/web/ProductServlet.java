@@ -21,6 +21,13 @@ public class ProductServlet extends BaseServlet {
         return null;
     }
 
+    public String findByPid(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String pid = request.getParameter("pid");
+        Product product = new ProductServiceImpl().findByPid(pid);
+        request.setAttribute("product", product);
+        return "product_info";
+    }
+
     public String findCategory(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int page = 0;
         int count = 0;
