@@ -15,4 +15,11 @@
         from category
     </select>
 
+    <select id="findByCid" parameterType="String" resultType="Category">
+        select
+        <include refid="allCols"/>
+        from category
+        where cid = #{cid}
+    </select>
+
 </mapper>
