@@ -42,7 +42,8 @@
             <a href="productServlet.action?method=findByPid&pid=${product.pid}">
                 <img src="${product.pimage}" width="170" height="170" style="display: inline-block;">
             </a>
-            <p><a href="productServlet.action?method=findByPid&pid=${product.pid}" style='color:green'>${product.pname}</a></p>
+            <p><a href="productServlet.action?method=findByPid&pid=${product.pid}"
+                  style='color:green'>${product.pname}</a></p>
             <p><span color="#FF0000">商城价：&yen;${product.marketPrice}</span></p>
         </div>
     </c:forEach>
@@ -56,7 +57,7 @@
         <%--上一页按钮--%>
         <c:if test="${pageBean.currPage > 1}">
             <li>
-                <a href="productServlet.action?method=findCategory&cid=1&count=6&page=${pageBean.currPage - 1}"
+                <a href="productServlet.action?method=findCategory&cid=${param.cid}&count=6&page=${pageBean.currPage - 1}"
                    aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
             </li>
         </c:if>
@@ -70,19 +71,19 @@
         <%--所有页码--%>
         <c:forEach begin="1" end="${pageBean.totalPage}" var="i">
             <c:if test="${pageBean.currPage != i}">
-                <li><a href="productServlet.action?method=findCategory&cid=1&count=6&page=${i}">${i}</a></li>
+                <li><a href="productServlet.action?method=findCategory&cid=${param.cid}&count=6&page=${i}">${i}</a></li>
             </c:if>
 
             <%--当前页码按钮--%>
             <c:if test="${pageBean.currPage == i}">
-                <li><a href="productServlet.action?method=findCategory&cid=1&count=6&page=${i}">${i}</a></li>
+                <li><a href="productServlet.action?method=findCategory&cid=${param.cid}&count=6&page=${i}">${i}</a></li>
             </c:if>
         </c:forEach>
 
         <%--下一页按钮--%>
         <c:if test="${pageBean.currPage < pageBean.totalPage}">
             <li>
-                <a href="productServlet.action?method=findCategory&cid=1&count=6&page=${pageBean.currPage + 1}"
+                <a href="productServlet.action?method=findCategory&cid=${param.cid}&count=6&page=${pageBean.currPage + 1}"
                    aria-label="Next"><span aria-hidden="true">&raquo;</span> </a>
             </li>
         </c:if>

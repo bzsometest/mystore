@@ -32,9 +32,9 @@
 <div class="container">
     <div class="row">
         <div style="border: 1px solid #e4e4e4;width:930px;margin-bottom:10px;margin:0 auto;padding:10px;margin-bottom:10px;">
-            <a href="./index.htm">首页&nbsp;&nbsp;&gt;</a>
-            <a href="./蔬菜分类.htm">蔬菜&nbsp;&nbsp;&gt;</a>
-            <a>无公害蔬菜</a>
+            <a href="index.jsp">首页&nbsp;&nbsp;&gt;</a>
+            <a href="productServlet.action?method=findCategory&cid=${product.cid}">${productCategory.cname}&nbsp;&nbsp;&gt;</a>
+            <a href="#">${product.pname}</a>
         </div>
 
         <div style="margin:0 auto;width:950px;">
@@ -51,7 +51,8 @@
 
                 <div style="margin:10px 0 10px 0;">
                     亿家价: <strong style="color:#ef0101;">￥：${product.shopPrice}元/份</strong>
-                    参 考 价： <del>￥${product.marketPrice}元/份</del>
+                    参 考 价：
+                    <del>￥${product.marketPrice}元/份</del>
                 </div>
 
                 <div style="margin:10px 0 10px 0;">促销: <a target="_blank" title="限时抢购 (2014-07-30 ~ 2015-01-01)"

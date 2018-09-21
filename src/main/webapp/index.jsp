@@ -76,7 +76,7 @@
         </div>
         <div class="col-md-10">
             <div class="col-md-6" style="text-align:center;height:200px;padding:0px;">
-                <a href="product_info.jsp">
+                <a href="productServlet.action?method=findByPid&pid=1">
                     <img src="products/hao/middle01.jpg" width="516px" height="200px" style="display: inline-block;">
                 </a>
             </div>
@@ -93,6 +93,7 @@
     </div>
 
     <jsp:include page="footer.jsp"></jsp:include>
+
 </div>
 
 
