@@ -22,6 +22,12 @@
             width: 100%;
             height: 300px;
         }
+
+        .add_cart {
+            background: url('./images/product.gif') no-repeat scroll 0 -600px rgba(0, 0, 0, 0);
+            height: 36px;
+            width: 127px;
+        }
     </style>
 </head>
 
@@ -47,6 +53,7 @@
                 <div><strong>${product.pname}</strong></div>
                 <div style="border-bottom: 1px dotted #dddddd;width:350px;margin:10px 0 10px 0;">
                     <div>编号：${product.pid}</div>
+                    <div id="product_pid" style="display: none">${product.pid}</div>
                 </div>
 
                 <div style="margin:10px 0 10px 0;">
@@ -63,11 +70,9 @@
 
                     <div style="border-bottom: 1px solid #faeac7;margin-top:20px;padding-left: 10px;">购买数量:
                         <input id="quantity" name="quantity" value="1" maxlength="4" size="10" type="text"></div>
-
                     <div style="margin:20px 0 10px 0;;text-align: center;">
-                        <a href="cart.htm">
-                            <input style="background: url('./images/product.gif') no-repeat scroll 0 -600px rgba(0, 0, 0, 0);height:36px;width:127px;"
-                                   value="加入购物车" type="button">
+                        <a href="#">
+                            <input class="add_cart" value="加入购物车" type="button">
                         </a> &nbsp;收藏商品
                     </div>
                 </div>
@@ -120,7 +125,13 @@
 </div>
 
 <jsp:include page="footer.jsp"></jsp:include>
-
+<script>
+    $(".add_cart").parent().click(function () {
+        var quantity = $("#quantity").val();
+        var pid = $("#product_pid").text();
+        window.location.href = "cartServlet.action?method=addCart&pid=" + pid + "&count=" + quantity;
+    });
+</script>
 </body>
 
 </html>

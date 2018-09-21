@@ -17,7 +17,7 @@
             <ol class="list-inline">
                 <li>用户： <a href="index.jsp" style="font-size: 150%;">${sessionScope.user.username}</a></li>
                 <li><a href="userServlet.action?method=logout">注销登录</a></li>
-                <li><a href="cart.htm">购物车</a></li>
+                <li><a href="cart.jsp">购物车</a></li>
             </ol>
         </c:if>
         <c:if test="${sessionScope.user==null}">
