@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <!--
@@ -12,11 +13,18 @@
         <img src="img/header.png"/>
     </div>
     <div class="col-md-3" style="padding-top:20px">
-        <ol class="list-inline">
-            <li><a href="login.jsp">登录</a></li>
-            <li><a href="register.jsp">注册</a></li>
-            <li><a href="cart.htm">购物车</a></li>
-        </ol>
+        <c:if test="${sessionScope.username!=null}">
+            <ol class="list-inline">
+                <li>用户： <a href="index.jsp" style="font-size: 150%;">${sessionScope.username}</a></li>
+                <li><a href="cart.htm">购物车</a></li>
+            </ol>
+        </c:if>
+        <c:if test="${sessionScope.username==null}">
+            <ol class="list-inline">
+                <li><a href="login.jsp">登录</a></li>
+                <li><a href="register.jsp">注册</a></li>
+            </ol>
+        </c:if>
     </div>
 </div>
 <!--
@@ -51,7 +59,6 @@
                     </div>
                     <button type="submit" class="btn btn-default">Submit</button>
                 </form>
-
             </div>
             <!-- /.navbar-collapse -->
         </div>
