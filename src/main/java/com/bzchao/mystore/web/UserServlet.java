@@ -2,6 +2,7 @@ package com.bzchao.mystore.web;
 
 import com.bzchao.mystore.entity.User;
 import com.bzchao.mystore.service.impl.UserServiceImpl;
+import com.bzchao.mystore.utils.CookieUtils;
 import com.bzchao.mystore.utils.MailUtils;
 import com.bzchao.mystore.utils.MyDateConverter;
 import com.bzchao.mystore.utils.ServletUtils;
@@ -91,6 +92,14 @@ public class UserServlet extends BaseServlet {
 
         req.getSession().setAttribute("username", newUser.getName());
         return REDIRECT + "index.jsp";
+    }
+
+    public String logout(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getSession().invalidate();
+        Cookie cookie = CookieUtils.getCookie("username", req.getCookies());
+        cookie.setMaxAge(0);
+        resp.addCookie(cookie);
+        return REDIRECT + "login.jsp";
     }
 
     public String checkUsername(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
