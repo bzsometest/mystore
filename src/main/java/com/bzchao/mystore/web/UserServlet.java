@@ -19,6 +19,9 @@ import java.util.Date;
 
 @WebServlet("/userServlet.action")
 public class UserServlet extends BaseServlet {
+
+    public static final String CHECK_CODE_NAME = "checkCode";
+
     /**
      * 用户注册
      *
@@ -111,8 +114,9 @@ public class UserServlet extends BaseServlet {
 
     private boolean validateCode(HttpServletRequest req) {
         String code = req.getParameter("code");
-        String codeSesion = (String) req.getSession().getAttribute("code");
-        if (code == null || code.equalsIgnoreCase(codeSesion)) {
+        String codeSesion = (String) req.getSession().getAttribute(CHECK_CODE_NAME);
+
+        if (code == null || !code.equalsIgnoreCase(codeSesion)) {
             return false;
         }
         return true;
