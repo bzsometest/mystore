@@ -15,7 +15,14 @@
     <div class="col-md-3" style="padding-top:20px">
         <c:if test="${sessionScope.user!=null}">
             <ol class="list-inline">
-                <li>用户： <a href="index.jsp" style="font-size: 150%;">${sessionScope.user.username}</a></li>
+                <li>用户： <a href="index.jsp" style="font-size: 150%;">
+                    <c:if test="${user.name!=null}">
+                        ${user.name}
+                    </c:if>
+                    <c:if test="${user.uname==null}">
+                        ${user.username}
+                    </c:if>
+                </a></li>
                 <li><a href="userServlet.action?method=logout">注销登录</a></li>
                 <li><a href="orderServlet.action?method=showOrderByUser">我的订单</a></li>
                 <li><a href="cart.jsp">购物车</a></li>
