@@ -6,6 +6,15 @@ public class OrderItem {
     private String pid;
     private Integer count;
     private Double subPrice;
+    private Product product;
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
     public String getItemId() {
         return itemId;
@@ -51,10 +60,11 @@ public class OrderItem {
     public String toString() {
         return "OrderItem{" +
                 "itemId='" + itemId + '\'' +
+                ", oid='" + oid + '\'' +
+                ", pid='" + pid + '\'' +
                 ", count=" + count +
                 ", subPrice=" + subPrice +
-                ", pid='" + pid + '\'' +
-                ", oid='" + oid + '\'' +
+                ", product=" + product +
                 '}';
     }
 }

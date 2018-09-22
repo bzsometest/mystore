@@ -4,9 +4,9 @@ package com.bzchao.mystore.entity;
  * 购物车商品条目
  */
 public class CartItem {
-    Product product;
-    int count;
-    double subPrice;
+   private Product product;
+    private int count;
+    private double subPrice;
 
     public double getSubPrice() {
         return product.getShopPrice() * count;

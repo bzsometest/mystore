@@ -9,14 +9,26 @@ import com.bzchao.mystore.utils.MybatisUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
+import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 public class OrderServiceImpl implements OrderService {
+
     @Override
-    public Order findByOidWithItem(String oid) {
+    public List<Order> findByUidWithAll(String uid) {
         SqlSession sqlSession = MybatisUtil.getSessionFactory().openSession();
         OrderDao orderDao = sqlSession.getMapper(OrderDao.class);
-        Order order = orderDao.findByOidWithItem(oid);
+        List<Order> orderList = orderDao.findByUidWithAll(uid);
+        sqlSession.close();
+        return orderList;
+    }
+
+    @Override
+    public Order findByOidWithAll(String oid) {
+        SqlSession sqlSession = MybatisUtil.getSessionFactory().openSession();
+        OrderDao orderDao = sqlSession.getMapper(OrderDao.class);
+        Order order = orderDao.findByOidWithAll(oid);
         sqlSession.close();
         return order;
     }
@@ -29,6 +41,7 @@ public class OrderServiceImpl implements OrderService {
         // 初始化订单信息
         order.setOid(oid);
         order.setState(0);
+        order.setOrderTime(new Date());
 
         SqlSession sqlSession = MybatisUtil.getSessionFactory().openSession();
         OrderDao orderDao = sqlSession.getMapper(OrderDao.class);
@@ -66,7 +79,23 @@ public class OrderServiceImpl implements OrderService {
 
     @Test
     public void test() {
-        Order byOid = findByOidWithItem("1234");
+        List<Order> byOid = findByUidWithAll("f55b7d3a352a4f0782c910b2c70f1ea4");
         System.out.println(byOid);
+    }
+
+    @Test
+    public void testFindOrder() {
+        Order item = findByOidWithAll("1234");
+
+        System.out.println(item);
+    }
+
+    @Test
+    public void testItem() {
+        SqlSession sqlSession = MybatisUtil.getSessionFactory().openSession();
+        OrderItemDao orderItemDao = sqlSession.getMapper(OrderItemDao.class);
+        OrderItem order = orderItemDao.findByItemIdWithProduct("f4464e8934e449e9840111cc3385fa38");
+        System.out.println(order);
+
     }
 }

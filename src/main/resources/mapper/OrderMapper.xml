@@ -2,6 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <!-- 配置命名空间，区别名称 -->
 <mapper namespace="com.bzchao.mystore.dao.OrderDao">
 
@@ -9,12 +10,20 @@
              oid,uid,name,total_price,state,address,telephone,order_time
     </sql>
 
-    <sql id="allColsWidthItem">
-             orders.oid oid,uid,name,total_price,state,address,telephone,order_time,
-             item_id,order_item.oid oitem_oid,pid,count,sub_price
+    <sql id="allColsWithAll">
+            orders.oid oid,uid,name,total_price,state,address,telephone,order_time,
+             item_id,order_item.oid oitem_oid,order_item.pid order_item_pid,count,sub_price,
+             product.pid pid,pname,market_price,shop_price, pimage,pdate,is_hot, pdesc,pflag,cid
     </sql>
 
-    <resultMap id="orderMap" type="Order">
+    <resultMap id="orderMapWithAll" type="Order" autoMapping="true">
+        <!--尽量写完映射，可能存在某种原因导致不会自动映射-->
+        <id property="oid" column="oid"></id>
+        <result property="uid" column="uid"></result>
+        <result property="name" column="name"></result>
+        <result property="state" column="state"></result>
+        <result property="address" column="address"></result>
+        <result property="telephone" column="telephone"></result>
         <result property="totalPrice" column="total_price"></result>
         <result property="orderTime" column="order_time"></result>
         <collection property="orderItemList" ofType="OrderItem">
@@ -23,6 +32,14 @@
             <result property="pid" column="pid"></result>
             <result property="count" column="count"></result>
             <result property="subPrice" column="sub_price"></result>
+            <association property="product" javaType="Product">
+                <id property="pid" column="pid"></id>
+                <result property="pname" column="pname"></result>
+                <result property="pimage" column="pimage"></result>
+                <result property="marketPrice" column="market_price"></result>
+                <result property="shopPrice" column="shop_price"></result>
+                <result property="isHot" column="is_hot"></result>
+            </association>
         </collection>
     </resultMap>
 
@@ -32,12 +49,22 @@
         values(#{oid},#{uid},#{name},#{totalPrice},#{state},#{address},#{telephone},#{orderTime})
     </insert>
 
-    <select id="findByOidWithItem" parameterType="String" resultMap="orderMap">
+    <select id="findByUidWithAll" parameterType="String" resultMap="orderMapWithAll">
         select
-        <include refid="allColsWidthItem"/>
+        <include refid="allColsWithAll"/>
         from orders
-        left join order_item
-        on orders.oid = order_item.oid
+        left join order_item on orders.oid = order_item.oid
+        left join product on order_item.pid = product.pid
+        where orders.uid = #{uid}
+        order by order_time desc
+    </select>
+
+    <select id="findByOidWithAll" parameterType="String" resultMap="orderMapWithAll">
+        select
+        <include refid="allColsWithAll"/>
+        from orders
+        left join order_item on orders.oid = order_item.oid
+        left join product on order_item.pid = product.pid
         where orders.oid = #{oid}
     </select>
 

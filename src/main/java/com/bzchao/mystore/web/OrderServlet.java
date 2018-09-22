@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -49,12 +48,29 @@ public class OrderServlet extends BaseServlet {
 
         // 对创建订单结果进行判断处理
         if (is) {
-            return REDIRECT + "order_list.jsp";
+            //创建订单成功
+            //删除购物车中得到商品
+            req.getSession().removeAttribute(CART_NAME);
+            //跳转到显示商品信息页面(Servlet)，通过Servlet获得订单列表
+            return REDIRECT + "orderServlet.action?method=showOrder";
         } else {
             req.setAttribute("message", "创建订单失败！");
             return "info";
         }
     }
+
+    public String showOrder(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        User user = (User) req.getSession().getAttribute("user");
+        List<Order> orderList = new OrderServiceImpl().findByUidWithAll(user.getUid());
+        System.out.println(orderList);
+        for (Order order : orderList) {
+            System.out.println(order);
+            System.out.println();
+        }
+        req.setAttribute("orderList", orderList);
+        return "order_list";
+    }
+
 
     /**
      * 从购物车中读取商品条目列表

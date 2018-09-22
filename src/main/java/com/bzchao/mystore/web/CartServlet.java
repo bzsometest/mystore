@@ -122,7 +122,7 @@ public class CartServlet extends BaseServlet {
 
         double totalPrice = getTotalPrice(request, response);
         request.getSession().setAttribute("totalPrice", totalPrice);
-        
+
         return "redirect:cart.jsp";
     }
 
@@ -130,6 +130,9 @@ public class CartServlet extends BaseServlet {
         double totalPrice = 0.0;
         HttpSession session = request.getSession();
         Map<String, CartItem> cartItemMap = (Map<String, CartItem>) session.getAttribute(CART_NAME);
+        if (cartItemMap == null) {
+            return totalPrice;
+        }
         for (Map.Entry<String, CartItem> entry : cartItemMap.entrySet()) {
             double subPrice = entry.getValue().getSubPrice();
             totalPrice += subPrice;

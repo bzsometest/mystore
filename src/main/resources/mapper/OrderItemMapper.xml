@@ -8,10 +8,24 @@
     <sql id="allCols">
            item_id,oid,pid,count,sub_price
     </sql>
-    <resultMap id="orderMap" type="Order">
+    <sql id="allColsWidthProduct">
+         item_id,oid,order_item.pid pid,count,sub_price,
+         product.pid product_pid,pname,
+    </sql>
+    <resultMap id="orderItemMapWithProduct" type="OrderItem">
         <id property="itemId" column="item_id"></id>
+        <!--pid需要明确映射-->
+        <result property="pid" column="pid"></result>
         <result property="subPrice" column="sub_price"></result>
+        <association property="product" select="com.bzchao.mystore.dao.ProductDao.findByPid" column="pid"></association>
     </resultMap>
+
+    <select id="findByItemIdWithProduct" parameterType="String" resultMap="orderItemMapWithProduct">
+        select
+        <include refid="allCols"/>
+        from order_item
+        where item_id = #{itemId}
+    </select>
 
     <insert id="insert" parameterType="OrderItem">
        insert  into order_item (item_id,oid,pid,count,sub_price)
