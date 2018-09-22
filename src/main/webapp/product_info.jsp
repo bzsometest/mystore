@@ -62,12 +62,13 @@
                     <del>￥${product.marketPrice}元/份</del>
                 </div>
 
-                <div style="margin:10px 0 10px 0;">促销: <a target="_blank" title="限时抢购 (2014-07-30 ~ 2015-01-01)"
-                                                          style="background-color: #f07373;">限时抢购</a></div>
+                <div style="margin:10px 0 10px 0;">促销:
+                    <a target="_blank" title="限时抢购 (2014-07-30 ~ 2015-01-01)"
+                       style="background-color: #f07373;">限时抢购</a>
+                </div>
 
                 <div style="padding:10px;border:1px solid #e7dbb1;width:330px;margin:15px 0 10px 0;;background-color: #fffee6;">
                     <div style="margin:5px 0 10px 0;">白色</div>
-
                     <div style="border-bottom: 1px solid #faeac7;margin-top:20px;padding-left: 10px;">购买数量:
                         <input id="quantity" name="quantity" value="1" maxlength="4" size="10" type="text"></div>
                     <div style="margin:20px 0 10px 0;;text-align: center;">
@@ -125,11 +126,12 @@
 </div>
 
 <jsp:include page="footer.jsp"></jsp:include>
+
 <script>
     $(".add_cart").parent().click(function () {
         var quantity = $("#quantity").val();
         var pid = $("#product_pid").text();
-        window.location.href = "cartServlet.action?method=addCart&pid=" + pid + "&count=" + quantity;
+        window.location.href = "cartServlet.action?method=addCart&pid=" + pid + "&quantity=" + quantity;
     });
 </script>
 </body>

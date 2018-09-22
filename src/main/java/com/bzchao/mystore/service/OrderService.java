@@ -10,7 +10,9 @@ public interface OrderService {
 
     Order findByOidWithAll(String oid);
 
-    boolean insert(Order order);
+    Order insert(Order order);
+
+    boolean update(Order order);
 
     boolean insertOrderItem(OrderItem orderItem);
 

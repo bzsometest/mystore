@@ -37,7 +37,7 @@
             <table class="table table-bordered">
                 <tbody>
                 <tr class="warning">
-                    <th colspan="5">订单编号:9005</th>
+                    <th colspan="5">订单编号:${order.oid}</th>
                 </tr>
                 <tr class="warning">
                     <th>图片</th>
@@ -46,23 +46,23 @@
                     <th>数量</th>
                     <th>小计</th>
                 </tr>
-                <c:forEach items="${cart.cartItemMap}" var="cartItem">
+                <c:forEach items="${order.orderItemList}" var="orderItem">
                     <tr class="active">
                         <td width="60" width="40%">
                             <input type="hidden" name="id" value="22">
-                            <img src="${cartItem.value.product.pimage}" width="70" height="60">
+                            <img src="${orderItem.product.pimage}" width="70" height="60">
                         </td>
                         <td width="30%">
-                            <a target="_blank">${cartItem.value.product.pname}</a>
+                            <a target="_blank">${orderItem.product.pname}</a>
                         </td>
                         <td width="20%">
-                            ￥${cartItem.value.product.shopPrice}
+                            ￥${orderItem.product.shopPrice}
                         </td>
                         <td width="10%">
-                                ${cartItem.value.count}
+                                ${orderItem.count}
                         </td>
                         <td width="15%">
-                            <span class="subtotal">￥${cartItem.value.subPrice}</span>
+                            <span class="subtotal">￥${orderItem.subPrice}</span>
                         </td>
                     </tr>
                 </c:forEach>
@@ -71,7 +71,7 @@
         </div>
 
         <div style="text-align:right;margin-right:120px;">
-            商品金额: <strong style="color:#ff6600;">￥${cart.totalPrice}元</strong>
+            商品金额: <strong style="color:#ff6600;">￥${order.totalPrice}元</strong>
         </div>
 
     </div>
@@ -80,23 +80,27 @@
         <hr/>
         <form id="orderForm" action="orderServlet.action" class="form-horizontal"
               style="margin-top:5px;margin-left:150px;">
-            <input type="hidden" name="method" value="confirmOrder">
+            <input type="hidden" name="method" value="updateOrder">
+            <input type="hidden" name="oid" value="${order.oid}">
             <div class="form-group">
                 <label for="address" class="col-sm-1 control-label">地址</label>
                 <div class="col-sm-5">
-                    <input type="text" class="form-control" name="address" id="address" placeholder="请输入收货地址">
+                    <input type="text" class="form-control" name="address" id="address" placeholder="请输入收货地址"
+                           value="${order.address}">
                 </div>
             </div>
             <div class="form-group">
                 <label for="name" class="col-sm-1 control-label">收货人</label>
                 <div class="col-sm-5">
-                    <input type="text" class="form-control" name="name" id="name" placeholder="请输收货人">
+                    <input type="text" class="form-control" name="name" id="name" placeholder="请输收货人"
+                           value="${order.name}">
                 </div>
             </div>
             <div class="form-group">
                 <label for="telephone" class="col-sm-1 control-label">电话</label>
                 <div class="col-sm-5">
-                    <input type="text" class="form-control" name="telephone" id="telephone" placeholder="请输入联系方式">
+                    <input type="text" class="form-control" name="telephone" id="telephone"
+                           placeholder="请输入联系方式" value="${order.telephone}">
                 </div>
             </div>
         </form>
@@ -132,6 +136,9 @@
             <hr/>
             <p style="text-align:right;margin-right:100px;">
                 <a href="javascript:document.getElementById('orderForm').submit();">
+                    <button class="btn btn-primary btn-lg">更新订单信息</button>
+                </a>
+                <a href="playServlet.action?method=playOrder&oid=${order.oid}">
                     <img src="./images/finalbutton.gif" width="204" height="51" border="0"/>
                 </a>
             </p>

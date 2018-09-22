@@ -49,6 +49,12 @@
         values(#{oid},#{uid},#{name},#{totalPrice},#{state},#{address},#{telephone},#{orderTime})
     </insert>
 
+    <update id="update" parameterType="Order">
+        update orders
+        set name=#{name},address=#{address},telephone=#{telephone}
+        where oid = #{oid}
+    </update>
+
     <delete id="delete" parameterType="String">
         delete from orders where oid = #{oid}
     </delete>

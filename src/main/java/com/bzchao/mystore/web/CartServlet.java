@@ -29,9 +29,9 @@ public class CartServlet extends BaseServlet {
      * @throws IOException
      */
     public String addCart(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
+
         String pid = req.getParameter("pid");
-        int count = Integer.valueOf(req.getParameter("count"));
+        int quantity = Integer.valueOf(req.getParameter("quantity"));
 
         Cart cart = getCart(req, resp);
         Map<String, CartItem> cartItemMap = cart.getCartItemMap();
@@ -56,7 +56,7 @@ public class CartServlet extends BaseServlet {
         //增加购物车中商品数量
         CartItem cartItem = cartItemMap.get(pid);
         int oldCount = cartItem.getCount();
-        cartItem.setCount(oldCount + count);
+        cartItem.setCount(oldCount + quantity);
         cartItemMap.put(pid, cartItem);
 
         //采用响应重定向，防止用户刷新页面，数据被重新提交

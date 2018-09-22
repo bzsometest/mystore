@@ -40,7 +40,10 @@
                     <thead>
                     <tr class="success">
                         <th colspan="4">订单编号:${order.oid}</th>
-                        <th colspan="1"><a href="orderServlet.action?method=deleteOrder&oid=${order.oid}">删除</a></th>
+                        <th colspan="1">
+                            <a href="orderServlet.action?method=deleteOrder&oid=${order.oid}">删除</a>
+                            <a href="orderServlet.action?method=showOrderByOid&oid=${order.oid}">修改支付</a>
+                        </th>
                     </tr>
                     <tr class="warning">
                         <th>图片</th>

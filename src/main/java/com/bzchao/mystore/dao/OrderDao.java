@@ -11,5 +11,7 @@ public interface OrderDao {
 
     int insert(Order order);
 
+    int update(Order order);
+
     int delete(String oid);
 }
