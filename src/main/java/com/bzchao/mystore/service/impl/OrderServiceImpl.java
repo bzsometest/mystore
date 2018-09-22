@@ -68,7 +68,6 @@ public class OrderServiceImpl implements OrderService {
 
         SqlSession sqlSession = MybatisUtil.getSessionFactory().openSession();
         OrderDao orderDao = sqlSession.getMapper(OrderDao.class);
-        System.out.println("OrderServiceImpl:" + order);
         //在数据库中创建订单
         int res = orderDao.insert(order);
         sqlSession.commit();
@@ -115,7 +114,6 @@ public class OrderServiceImpl implements OrderService {
 
         for (OrderItem orderItem : orderItemList) {
             String itemId = UUID.randomUUID().toString().replaceAll("-", "");
-            System.out.println("addOrderItem UUID:" + itemId);
             orderItem.setItemId(itemId);
             orderItem.setOid(oid);
             //对商品小计进行处理
@@ -159,13 +157,6 @@ public class OrderServiceImpl implements OrderService {
             totalPrice += orderItem.getSubPrice();
         }
 
-        System.out.println(order.getOid() + ":  " + totalPrice);
         order.setTotalPrice(totalPrice);
-    }
-
-    @Test
-    public void test() {
-        List<Order> order = findByUidWithAll("f55b7d3a352a4f0782c910b2c70f1ea4");
-        System.out.println(order);
     }
 }

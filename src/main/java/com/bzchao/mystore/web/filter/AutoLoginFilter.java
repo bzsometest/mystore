@@ -36,7 +36,6 @@ public class AutoLoginFilter implements Filter {
             user = new UserServiceImpl().findByUsername(username);
             session.setAttribute("user", user);
         }
-        System.out.println("AutoLoginFilter:"+user);
         chain.doFilter(request, response);
     }
 

@@ -98,9 +98,4 @@ public class UserServiceImpl implements UserService {
         webPath = path;
     }
 
-    @Test
-    public void test() {
-        User ccc = findByUsername("ccc");
-        System.out.println(ccc);
-    }
 }

@@ -15,7 +15,6 @@ public class CacheUtils {
 
     static {
         URL url = CookieUtils.class.getClassLoader().getResource("ehcache.xml");
-        System.out.println("url:" + url.getFile());
         manager = CacheManager.create(url);
     }
 
