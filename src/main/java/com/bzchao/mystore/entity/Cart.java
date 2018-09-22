@@ -1,26 +1,26 @@
 package com.bzchao.mystore.entity;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  * 用户购物车
  */
 public class Cart {
-    private List<CartItem> cartItemList;
+    private Map<String, CartItem> cartItemMap;
     private double totalPrice;
 
-    public List<CartItem> getCartItemList() {
-        return cartItemList;
+    public Map<String, CartItem> getCartItemMap() {
+        return cartItemMap;
     }
 
-    public void setCartItemList(List<CartItem> cartItemList) {
-        this.cartItemList = cartItemList;
+    public void setCartItemMap(Map<String, CartItem> cartItemMap) {
+        this.cartItemMap = cartItemMap;
     }
 
     public double getTotalPrice() {
         totalPrice = 0;
-        for (CartItem cartItem : cartItemList) {
-            totalPrice += cartItem.getSubPrice();
+        for (Map.Entry<String, CartItem> entry : cartItemMap.entrySet()) {
+            totalPrice += entry.getValue().getSubPrice();
         }
         return totalPrice;
     }

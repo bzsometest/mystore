@@ -1,6 +1,7 @@
 package com.bzchao.mystore.web;
 
 import com.alibaba.fastjson.JSON;
+import com.bzchao.mystore.entity.Cart;
 import com.bzchao.mystore.entity.CartItem;
 import com.bzchao.mystore.entity.Product;
 import com.bzchao.mystore.service.impl.ProductServiceImpl;
@@ -13,11 +14,10 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 @WebServlet("/cartServlet.action")
 public class CartServlet extends BaseServlet {
-    private static final String CART_NAME = "cartItemMap";
+    private static final String CART_NAME = "cart";
 
     /**
      * 增加指定数量的商品到购物车
@@ -33,34 +33,31 @@ public class CartServlet extends BaseServlet {
         String pid = req.getParameter("pid");
         int count = Integer.valueOf(req.getParameter("count"));
 
-        Map<String, CartItem> cartItemMap = (Map<String, CartItem>) session.getAttribute(CART_NAME);
-        //  用户第一次使用购物车
-        if (cartItemMap == null) {
-            cartItemMap = new HashMap<String, CartItem>();
-        }
+        Cart cart = getCart(req, resp);
+        Map<String, CartItem> cartItemMap = cart.getCartItemMap();
+
         //购物车中没有此商品，则初始化此商品item
         if (!cartItemMap.containsKey(pid)) {
             CartItem cartItem = new CartItem();
             Product product = new ProductServiceImpl().findByPid(pid);
+
+            //数据库中不存在此商品
             if (product == null) {
-                //数据库中不存在此商品
                 req.setAttribute("message", "不存在此商品！pid：" + pid);
                 return "info";
             }
+
+            //初始化商品item
             cartItem.setProduct(product);
             cartItem.setCount(0);
             cartItemMap.put(pid, cartItem);
         }
 
+        //增加购物车中商品数量
         CartItem cartItem = cartItemMap.get(pid);
         int oldCount = cartItem.getCount();
         cartItem.setCount(oldCount + count);
         cartItemMap.put(pid, cartItem);
-
-        session.setAttribute(CART_NAME, cartItemMap);
-
-        double totalPrice = getTotalPrice(req, resp);
-        session.setAttribute("totalPrice", totalPrice);
 
         //采用响应重定向，防止用户刷新页面，数据被重新提交
         return REDIRECT + "cart.jsp";
@@ -80,24 +77,22 @@ public class CartServlet extends BaseServlet {
         String pid = req.getParameter("pid");
         int quantity = Integer.valueOf(req.getParameter("quantity"));
 
-        Map<String, CartItem> cartItemMap = (Map<String, CartItem>) session.getAttribute(CART_NAME);
 
-        CartItem cartItem = cartItemMap.get(pid);
-        if (cartItem == null) {
+        Cart cart = getCart(req, resp);
+        Map<String, CartItem> cartItemMap = cart.getCartItemMap();
+
+        //购物车中不存在此商品
+        if (!cartItemMap.containsKey(pid)) {
             resp.getWriter().write("error");
             return null;
         }
+
+        CartItem cartItem = cartItemMap.get(pid);
         cartItem.setCount(quantity);
+
         cartItemMap.put(pid, cartItem);
 
-        double totalPrice = getTotalPrice(req, resp);
-        session.setAttribute("totalPrice", totalPrice);
-
-        Map<String, Object> respMap = new HashMap<>();
-        respMap.put("cartItem", cartItem);
-        respMap.put("totalPrice", totalPrice);
-
-        String jsonString = JSON.toJSONString(respMap);
+        String jsonString = JSON.toJSONString(cart);
 
         resp.getWriter().write(jsonString);
         resp.getWriter().flush();
@@ -107,8 +102,6 @@ public class CartServlet extends BaseServlet {
 
     public String clearCart(HttpServletRequest request, HttpServletResponse response) {
         request.getSession().removeAttribute(CART_NAME);
-        double totalPrice = getTotalPrice(request, response);
-        request.getSession().setAttribute("totalPrice", totalPrice);
         return "redirect:cart.jsp";
     }
 
@@ -120,23 +113,22 @@ public class CartServlet extends BaseServlet {
         Map<String, CartItem> cartItemMap = (Map<String, CartItem>) session.getAttribute(CART_NAME);
         cartItemMap.remove(pid);
 
-        double totalPrice = getTotalPrice(request, response);
-        request.getSession().setAttribute("totalPrice", totalPrice);
-
         return "redirect:cart.jsp";
     }
 
-    public static double getTotalPrice(HttpServletRequest request, HttpServletResponse response) {
-        double totalPrice = 0.0;
+    public Cart getCart(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        Map<String, CartItem> cartItemMap = (Map<String, CartItem>) session.getAttribute(CART_NAME);
-        if (cartItemMap == null) {
-            return totalPrice;
+        Cart cart = (Cart) session.getAttribute(CART_NAME);
+
+        //用户第一次使用购物车
+        if (cart == null) {
+            //初始化用户购物车
+            cart = new Cart();
+            cart.setCartItemMap(new HashMap<String, CartItem>());
+            //将购物车存放到session中
+            session.setAttribute(CART_NAME, cart);
         }
-        for (Map.Entry<String, CartItem> entry : cartItemMap.entrySet()) {
-            double subPrice = entry.getValue().getSubPrice();
-            totalPrice += subPrice;
-        }
-        return totalPrice;
+
+        return cart;
     }
 }
