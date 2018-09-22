@@ -5,6 +5,7 @@
 target/
 logs/
 idea/
+idea/*
 
 # Log file
 *.log
