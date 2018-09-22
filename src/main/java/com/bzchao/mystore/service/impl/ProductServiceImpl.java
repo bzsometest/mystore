@@ -61,11 +61,4 @@ public class ProductServiceImpl implements ProductService {
         sqlSession.close();
         return product;
     }
-
-    @Test
-    public void testFindHot() {
-        Product list = new ProductServiceImpl().findByPid("1");
-        System.out.println(list);
-    }
-
 }

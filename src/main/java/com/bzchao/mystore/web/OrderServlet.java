@@ -1,9 +1,6 @@
 package com.bzchao.mystore.web;
 
-import com.bzchao.mystore.entity.CartItem;
-import com.bzchao.mystore.entity.Order;
-import com.bzchao.mystore.entity.OrderItem;
-import com.bzchao.mystore.entity.User;
+import com.bzchao.mystore.entity.*;
 import com.bzchao.mystore.service.impl.OrderServiceImpl;
 import org.apache.commons.beanutils.BeanUtils;
 
@@ -21,7 +18,7 @@ import java.util.Set;
 @WebServlet("/orderServlet.action")
 public class OrderServlet extends BaseServlet {
 
-    private static final String CART_NAME = "cartItemMap";
+    private static final String CART_NAME = "cart";
 
     public String confirmOrder(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -62,15 +59,20 @@ public class OrderServlet extends BaseServlet {
     public String showOrder(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = (User) req.getSession().getAttribute("user");
         List<Order> orderList = new OrderServiceImpl().findByUidWithAll(user.getUid());
-        System.out.println(orderList);
-        for (Order order : orderList) {
-            System.out.println(order);
-            System.out.println();
-        }
+
         req.setAttribute("orderList", orderList);
         return "order_list";
     }
 
+    public String deleteOrder(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String oid = req.getParameter("oid");
+        boolean is = new OrderServiceImpl().delete(oid);
+        if (!is) {
+            req.setAttribute("message", "删除订单失败！");
+        }
+
+        return REDIRECT + "orderServlet.action?method=showOrder";
+    }
 
     /**
      * 从购物车中读取商品条目列表
@@ -79,7 +81,8 @@ public class OrderServlet extends BaseServlet {
 
         //从购物车中读取商品条目
         HttpSession session = req.getSession();
-        Map<String, CartItem> cartItemMap = (Map<String, CartItem>) session.getAttribute(CART_NAME);
+        Cart cart = (Cart) session.getAttribute(CART_NAME);
+        Map<String, CartItem> cartItemMap = cart.getCartItemMap();
 
         //生成商品条目列表
         ArrayList<OrderItem> orderItemList = new ArrayList<>();

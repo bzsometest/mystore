@@ -1,5 +1,4 @@
-﻿
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+﻿<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html>
@@ -47,7 +46,7 @@
                     <th>数量</th>
                     <th>小计</th>
                 </tr>
-                <c:forEach items="${sessionScope.cartItemMap}" var="cartItem">
+                <c:forEach items="${cart.cartItemMap}" var="cartItem">
                     <tr class="active">
                         <td width="60" width="40%">
                             <input type="hidden" name="id" value="22">
@@ -72,7 +71,7 @@
         </div>
 
         <div style="text-align:right;margin-right:120px;">
-            商品金额: <strong style="color:#ff6600;">￥${totalPrice}元</strong>
+            商品金额: <strong style="color:#ff6600;">￥${cart.totalPrice}元</strong>
         </div>
 
     </div>

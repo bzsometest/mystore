@@ -19,7 +19,7 @@ public class MybatisUtil {
             try {
                 factory = new SqlSessionFactoryBuilder().build(Resources.getResourceAsReader("sqlMapConfig.xml"));
             } catch (IOException e) {
-                System.out.println("初始化sessionFactory出异常:");
+                System.out.println("MybatisUtil：初始化sessionFactory出异常:");
                 e.printStackTrace();
             }
         }

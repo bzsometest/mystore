@@ -13,4 +13,6 @@ public interface OrderService {
     boolean insert(Order order);
 
     boolean insertOrderItem(OrderItem orderItem);
+
+    boolean delete(String oid);
 }

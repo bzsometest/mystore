@@ -27,7 +27,6 @@ public class BaseServlet extends HttpServlet {
 
         //1. 获取method参数
         String methodName = req.getParameter("method");
-        System.out.println(methodName);
 
         //2. 通过反射调用方法
         try {

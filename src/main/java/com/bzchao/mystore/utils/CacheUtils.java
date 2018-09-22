@@ -36,11 +36,4 @@ public class CacheUtils {
         cache.put(element);
     }
 
-    @Test
-    public void testGet() {
-        List<Category> categoryList = (List<Category>) get("category");
-        put("a", "222");
-        Object o = get("a");
-        System.out.println(o);
-    }
 }

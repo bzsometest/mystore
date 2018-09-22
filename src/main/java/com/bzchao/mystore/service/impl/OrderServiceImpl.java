@@ -77,25 +77,19 @@ public class OrderServiceImpl implements OrderService {
         return res > 0;
     }
 
+    @Override
+    public boolean delete(String oid) {
+        SqlSession sqlSession = MybatisUtil.getSessionFactory().openSession();
+        OrderDao orderDao = sqlSession.getMapper(OrderDao.class);
+        int res = orderDao.delete(oid);
+        sqlSession.commit();
+        sqlSession.close();
+        return res > 0;
+    }
+
     @Test
     public void test() {
-        List<Order> byOid = findByUidWithAll("f55b7d3a352a4f0782c910b2c70f1ea4");
-        System.out.println(byOid);
-    }
-
-    @Test
-    public void testFindOrder() {
-        Order item = findByOidWithAll("1234");
-
-        System.out.println(item);
-    }
-
-    @Test
-    public void testItem() {
-        SqlSession sqlSession = MybatisUtil.getSessionFactory().openSession();
-        OrderItemDao orderItemDao = sqlSession.getMapper(OrderItemDao.class);
-        OrderItem order = orderItemDao.findByItemIdWithProduct("f4464e8934e449e9840111cc3385fa38");
-        System.out.println(order);
-
+        boolean delete = delete("1234");
+        System.out.println(delete);
     }
 }

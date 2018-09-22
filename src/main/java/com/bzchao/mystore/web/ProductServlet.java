@@ -39,7 +39,7 @@ public class ProductServlet extends BaseServlet {
             page = Integer.valueOf(request.getParameter("page"));
             count = Integer.valueOf(request.getParameter("count"));
         } catch (NumberFormatException e) {
-            System.out.println("获取页码信息错误");
+            System.out.println("获取页码信息错误,使用默认参数");
         }
         page = page > 0 ? page : 1;
         count = count > 0 ? count : 6;
@@ -53,8 +53,6 @@ public class ProductServlet extends BaseServlet {
         pageBean.setTotalCount(total);
         pageBean.setCurrPage(page);
         pageBean.setPageSize(count);
-
-        System.out.println(pageBean);
 
         request.setAttribute("pageBean", pageBean);
 

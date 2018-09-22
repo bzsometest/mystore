@@ -57,7 +57,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach items="${sessionScope.cartItemMap}" var="cartItem">
+                <c:forEach items="${cart.cartItemMap}" var="cartItem">
                     <tr class="active">
                         <td width="60" width="40%">
                             <input type="hidden" name="pid" value="${cartItem.key}">
@@ -90,8 +90,8 @@
         <div style="text-align:right;">
             <em style="color:#ff6600;">
                 登录后确认是否享有优惠&nbsp;&nbsp;
-            </em> 赠送积分: <em style="color:#ff6600;" id="nodes">${totalPrice/10}</em>&nbsp;
-            商品金额: <strong style="color:#ff6600;">￥<span id="totalPrice">${totalPrice}</span>元</strong>
+            </em> 赠送积分: <em style="color:#ff6600;" id="nodes">${cart.totalPrice/10}</em>&nbsp;
+            商品金额: <strong style="color:#ff6600;">￥<span id="totalPrice">${cart.totalPrice}</span>元</strong>
         </div>
         <div style="text-align:right;margin-top:10px;margin-bottom:10px;">
             <a href="cartServlet.action?method=clearCart" id="clear" class="clear">清空购物车</a>
@@ -119,15 +119,15 @@
             data: {method: "updateCart", pid: pid, quantity: quantity},
             dataType: "json",
             success: function (data) {
-                console.log("数据更新结果,pid:" + data.cartItem.product.pid + ",count:" + data.cartItem.count + ",subPrice:" + data.cartItem.subPrice)
-                var subPrice = data.cartItem.subPrice;
                 var totalPrice = data.totalPrice;
+                //返回的数据是map键值对，直接获取
+                var subPrice = data.cartItemMap[pid].subPrice;
+
                 _this_tr.find(".subPrice").text(subPrice);
                 $("#totalPrice").text(totalPrice);
-                $("#nodes").text(totalPrice/10);
+                $("#nodes").text(totalPrice / 10);
             }
         });
-
     });
 </script>
 </body>

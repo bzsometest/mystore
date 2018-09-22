@@ -16,7 +16,7 @@ public class CategoryServiceImpl implements CategoryService {
         List<Category> categoryList = (List<Category>) CacheUtils.get("category");
 
         if (categoryList == null) {
-            System.out.println("CategoryServiceImpl 从数据库获取分类...");
+            System.out.println("CategoryServiceImpl 缓存中不存在数据，从数据库获取分类...");
             SqlSession sqlSession = MybatisUtil.getSessionFactory().openSession();
             CategoryDao categoryDao = sqlSession.getMapper(CategoryDao.class);
             categoryList = categoryDao.findAll();
@@ -35,12 +35,5 @@ public class CategoryServiceImpl implements CategoryService {
         sqlSession.close();
         return category;
     }
-
-    @Test
-    public void testFindAll() {
-
-        CategoryServiceImpl categoryService = new CategoryServiceImpl();
-        List<Category> all = categoryService.findAll();
-        System.out.println(all);
-    }
+    
 }

@@ -39,7 +39,8 @@
                 <table class="table table-bordered">
                     <thead>
                     <tr class="success">
-                        <th colspan="5">订单编号:${order.oid}</th>
+                        <th colspan="4">订单编号:${order.oid}</th>
+                        <th colspan="1"><a href="orderServlet.action?method=deleteOrder&oid=${order.oid}">删除</a></th>
                     </tr>
                     <tr class="warning">
                         <th>图片</th>

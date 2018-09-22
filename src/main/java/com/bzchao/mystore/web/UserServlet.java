@@ -86,7 +86,7 @@ public class UserServlet extends BaseServlet {
         //记住密码
         if (req.getParameter("autoLogin") != null) {
             Cookie cookie = new Cookie("username", user.getUsername());
-            cookie.setMaxAge(60 * 60);
+            cookie.setMaxAge(60 * 60 * 10);
             resp.addCookie(cookie);
         }
 
@@ -104,10 +104,8 @@ public class UserServlet extends BaseServlet {
 
     public String checkUsername(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username");
-        System.out.println("username：" + username);
         User user = new UserServiceImpl().findByUsername(username);
         String code = user == null ? "1" : "0";
-        System.out.println(code);
         resp.getWriter().write(code);
         return null;
     }
@@ -116,7 +114,6 @@ public class UserServlet extends BaseServlet {
         String code = req.getParameter("code");
         boolean is = new UserServiceImpl().active(code);
         String message = is ? "激活成功！" : "激活验证邮件无效！";
-        System.out.println(message);
         req.setAttribute("message", message);
         return "info";
     }

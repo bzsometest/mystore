@@ -49,6 +49,10 @@
         values(#{oid},#{uid},#{name},#{totalPrice},#{state},#{address},#{telephone},#{orderTime})
     </insert>
 
+    <delete id="delete" parameterType="String">
+        delete from orders where oid = #{oid}
+    </delete>
+
     <select id="findByUidWithAll" parameterType="String" resultMap="orderMapWithAll">
         select
         <include refid="allColsWithAll"/>
