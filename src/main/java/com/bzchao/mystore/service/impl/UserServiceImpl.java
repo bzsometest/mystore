@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
         sqlSession.close();
 
         //TODO 发送一封激活邮件
-        sendEmail(user);
+        sendRegisterEmail(user);
 
         result = true;
 
@@ -73,10 +73,18 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
-    private void sendEmail(User user) {
-        String code = user.getCode();
-        String content = "<h1>来自天虎官方商城的激活邮件:请点击下面链接激活!</h1><h3><a href='" + webPath + "/userServlet?method=activeUser&code=" + code + "'>" + webPath + "/userServlet?method=active&code=" + code + "</a></h3>";
-        MailUtils.sendMail(user.getEmail(), content);
+    private void sendRegisterEmail(final User user) {
+        //在线程中发送注册邮件
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                String code = user.getCode();
+                String content = "<h1>来自天虎官方商城的激活邮件:请点击下面链接激活!</h1><h3><a href='" + webPath + "/userServlet?method=activeUser&code=" + code + "'>" + webPath + "/userServlet?method=active&code=" + code + "</a></h3>";
+                MailUtils.sendMail(user.getEmail(), content);
+            }
+        };
+        thread.start();
+
     }
 
     /**
