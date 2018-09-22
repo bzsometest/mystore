@@ -51,13 +51,20 @@
 
     <update id="update" parameterType="Order">
         update orders
-        set name=#{name},address=#{address},telephone=#{telephone}
+        set total_price=#{totalPrice},name=#{name},address=#{address},telephone=#{telephone},state=#{state}
         where oid = #{oid}
     </update>
 
     <delete id="delete" parameterType="String">
         delete from orders where oid = #{oid}
     </delete>
+
+    <select id="findByOidSimple" parameterType="String" resultMap="orderMapWithAll">
+        select
+        <include refid="allCols"/>
+        from orders
+        where orders.oid = #{oid}
+    </select>
 
     <select id="findByUidWithAll" parameterType="String" resultMap="orderMapWithAll">
         select

@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div style="margin-top:50px;">
-    <img src="./image/footer.jpg" width="100%" height="78" alt="我们的优势" title="我们的优势"/>
+    <img src="./images/footer.jpg" width="100%" height="78" alt="我们的优势" title="我们的优势"/>
 </div>
 
 <div style="text-align: center;margin-top: 5px;">

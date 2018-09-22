@@ -76,10 +76,9 @@
 
     </div>
 
-    <div>
+    <div class="container-fluid">
         <hr/>
-        <form id="orderForm" action="orderServlet.action" class="form-horizontal"
-              style="margin-top:5px;margin-left:150px;">
+        <form id="orderForm" action="orderServlet.action" class="form-horizontal" style="margin:5px;margin-left: 100px;">
             <input type="hidden" name="method" value="updateOrder">
             <input type="hidden" name="oid" value="${order.oid}">
             <div class="form-group">
@@ -107,7 +106,7 @@
 
         <hr/>
 
-        <div style="margin-top:5px;margin-left:150px;">
+        <div style="margin-top:5px;margin-left: 100px;">
             <strong>选择银行：</strong>
             <p>
                 <br/>
@@ -136,10 +135,10 @@
             <hr/>
             <p style="text-align:right;margin-right:100px;">
                 <a href="javascript:document.getElementById('orderForm').submit();">
-                    <button class="btn btn-primary btn-lg">更新订单信息</button>
+                    <button class="btn btn-info btn-lg">更新订单信息</button>
                 </a>
                 <a href="playServlet.action?method=playOrder&oid=${order.oid}">
-                    <img src="./images/finalbutton.gif" width="204" height="51" border="0"/>
+                    <button class="btn btn-warning btn-lg">立即支付订单</button>
                 </a>
             </p>
             <hr/>

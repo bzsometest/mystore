@@ -39,10 +39,21 @@
                 <table class="table table-bordered">
                     <thead>
                     <tr class="success">
-                        <th colspan="4">订单编号:${order.oid}</th>
+                        <th colspan="3">订单编号:
+                            <a href="orderServlet.action?method=showOrderByOid&oid=${order.oid}">${order.oid}</a>
+                        </th>
+                        <th colspan="1" style="padding: 10px">
+                            <c:if test="${order.state==1}">
+                                <span class="label label-success">已支付</span>
+                            </c:if>
+                            <c:if test="${order.state!=1}">
+                                <span class="label label-warning">待支付</span>
+                            </c:if>
+                        </th>
                         <th colspan="1">
+                            <a href="playServlet.action?method=playOrder&oid=${order.oid}">支付</a>
+                            <a href="orderServlet.action?method=showOrderByOid&oid=${order.oid}">修改</a>
                             <a href="orderServlet.action?method=deleteOrder&oid=${order.oid}">删除</a>
-                            <a href="orderServlet.action?method=showOrderByOid&oid=${order.oid}">修改支付</a>
                         </th>
                     </tr>
                     <tr class="warning">
@@ -74,6 +85,14 @@
                             </td>
                         </tr>
                     </c:forEach>
+                    <tr class="active">
+                        <td colspan="4">
+                            <span style="margin-left:20px;font-size: 120%;">总计</span>
+                        </td>
+                        <td colspan="1">
+                            <span>￥${order.totalPrice}</span>
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
             </c:forEach>

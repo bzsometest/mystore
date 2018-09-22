@@ -45,6 +45,16 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public Order findByOidSimple(String oid) {
+        SqlSession sqlSession = MybatisUtil.getSessionFactory().openSession();
+        OrderDao orderDao = sqlSession.getMapper(OrderDao.class);
+        Order order = orderDao.findByOidSimple(oid);
+
+        sqlSession.close();
+        return order;
+    }
+
+    @Override
     public Order insert(Order order) {
 
         String oid = UUID.randomUUID().toString().replaceAll("-", "");
@@ -53,7 +63,6 @@ public class OrderServiceImpl implements OrderService {
         order.setOid(oid);
         order.setState(0);
         order.setOrderTime(new Date());
-
         //对商品总价进行处理
         handleTotalPrice(order);
 
@@ -62,16 +71,19 @@ public class OrderServiceImpl implements OrderService {
 
         //在数据库中创建订单
         int res = orderDao.insert(order);
-
-        //在数据库中创建商品条目列表
-        addOrderItem(order);
-
         sqlSession.commit();
         sqlSession.close();
-        if (res > 0) {
-            return order;
+
+        if (res < 1) {
+            System.out.println("创建订单失败！");
+            return null;
         }
-        return null;
+
+        //警告！必须先关闭创建order的session，某则，将导致order被锁定！无法增加商品条目，导致死锁
+        //在数据库中创建商品条目列表
+        addOrderItem(order.getOrderItemList(),oid);
+
+        return order;
     }
 
     @Override
@@ -84,22 +96,6 @@ public class OrderServiceImpl implements OrderService {
         return res > 0;
     }
 
-    @Override
-    public boolean insertOrderItem(OrderItem orderItem) {
-        String item_id = UUID.randomUUID().toString().replace("-", "");
-        orderItem.setItemId(item_id);
-
-        //对商品小计进行处理
-        handleSubPrice(orderItem);
-
-        SqlSession sqlSession = MybatisUtil.getSessionFactory().openSession();
-        OrderItemDao orderItemDao = sqlSession.getMapper(OrderItemDao.class);
-        int res = orderItemDao.insert(orderItem);
-
-        sqlSession.commit();
-        sqlSession.close();
-        return res > 0;
-    }
 
     @Override
     public boolean delete(String oid) {
@@ -111,23 +107,25 @@ public class OrderServiceImpl implements OrderService {
         return res > 0;
     }
 
-    /**
-     * 在数据库中创建商品条目列表
-     */
-    public void addOrderItem(Order order) {
+
+    @Override
+    public void addOrderItem(List<OrderItem> orderItemList,String oid) {
         SqlSession sqlSession = MybatisUtil.getSessionFactory().openSession();
         OrderItemDao orderItemDao = sqlSession.getMapper(OrderItemDao.class);
 
-        for (OrderItem orderItem : order.getOrderItemList()) {
+        for (OrderItem orderItem : orderItemList) {
             String itemId = UUID.randomUUID().toString().replaceAll("-", "");
+            System.out.println("addOrderItem UUID:" + itemId);
             orderItem.setItemId(itemId);
-            orderItem.setOid(order.getOid());
-
+            orderItem.setOid(oid);
             //对商品小计进行处理
             handleSubPrice(orderItem);
 
             orderItemDao.insert(orderItem);
         }
+
+        sqlSession.commit();
+        sqlSession.close();
     }
 
     /**
@@ -136,7 +134,9 @@ public class OrderServiceImpl implements OrderService {
      * @param orderItem
      */
     public void handleSubPrice(OrderItem orderItem) {
-        double subPrice = orderItem.getProduct().getShopPrice() * orderItem.getCount();
+        //未获得product
+        Product product = orderItem.getProduct();
+        double subPrice = product.getShopPrice() * orderItem.getCount();
         orderItem.setSubPrice(subPrice);
     }
 
@@ -148,11 +148,17 @@ public class OrderServiceImpl implements OrderService {
     public void handleTotalPrice(Order order) {
         double totalPrice = 0.0;
         for (OrderItem orderItem : order.getOrderItemList()) {
+
+            //首先读取商品信息到商品项目中，以便计算
+            Product product = new ProductServiceImpl().findByPid(orderItem.getPid());
+            orderItem.setProduct(product);
+
             //对商品小计进行处理
             handleSubPrice(orderItem);
 
             totalPrice += orderItem.getSubPrice();
         }
+
         System.out.println(order.getOid() + ":  " + totalPrice);
         order.setTotalPrice(totalPrice);
     }

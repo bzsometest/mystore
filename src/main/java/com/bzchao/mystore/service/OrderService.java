@@ -10,11 +10,16 @@ public interface OrderService {
 
     Order findByOidWithAll(String oid);
 
+    Order findByOidSimple(String oid);
+
     Order insert(Order order);
 
     boolean update(Order order);
 
-    boolean insertOrderItem(OrderItem orderItem);
-
     boolean delete(String oid);
+
+    /**
+     * 在数据库中创建商品条目列表
+     */
+    void addOrderItem(List<OrderItem> orderItemList, String oid);
 }
