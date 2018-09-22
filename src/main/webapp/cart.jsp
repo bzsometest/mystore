@@ -22,11 +22,6 @@
             height: 300px;
         }
 
-        .container .row div {
-            /* position:relative;
- float:left; */
-        }
-
         font {
             color: #3164af;
             font-size: 18px;

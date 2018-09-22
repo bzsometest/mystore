@@ -80,7 +80,7 @@ public class UserServiceImpl implements UserService {
             @Override
             public void run() {
                 String code = user.getCode();
-                String content = "<h1>来自天虎官方商城的激活邮件:请点击下面链接激活!</h1><h3><a href='" + webPath + "/userServlet?method=activeUser&code=" + code + "'>" + webPath + "/userServlet?method=active&code=" + code + "</a></h3>";
+                String content = "<h1>来自天虎官方商城的激活邮件:请点击下面链接激活!</h1><h3><a href='" + webPath + "/userServlet.action?method=activeUser&code=" + code + "'>" + webPath + "/userServlet?method=active&code=" + code + "</a></h3>";
                 MailUtils.sendMail(user.getEmail(), content);
             }
         };

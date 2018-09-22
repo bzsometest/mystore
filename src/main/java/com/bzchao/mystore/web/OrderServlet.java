@@ -30,8 +30,9 @@ public class OrderServlet extends BaseServlet {
      * @throws IOException
      */
     public String addOrder(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //编程方式：正逻辑流程
 
-        //获取前端用户提交的订单信息
+        //生成订单信息
         Order order = new Order();
 
         // 设置订单用户uid
@@ -40,22 +41,26 @@ public class OrderServlet extends BaseServlet {
 
         // 从购物车中读取商品条目列表
         ArrayList<OrderItem> orderItemList = getOrderItem(req, resp);
-        order.setOrderItemList(orderItemList);
+        if (orderItemList == null || orderItemList.isEmpty()) {
+            req.setAttribute("message", "购物车为空，请添加商品后重试！");
+            return "info";
+        }
 
+        order.setOrderItemList(orderItemList);
         // 在数据库中创建订单
         Order newOrder = new OrderServiceImpl().insert(order);
 
         // 对创建订单结果进行判断处理
-        if (newOrder != null) {
-            //创建订单成功
-            //删除购物车中的商品
-            req.getSession().removeAttribute(CART_NAME);
-            //跳转到订单显示页面(Servlet)
-            return REDIRECT + "orderServlet.action?method=showOrderByOid&oid=" + order.getOid();
-        } else {
+        // 创建订单成功失败
+        if (newOrder == null) {
             req.setAttribute("message", "创建订单失败！");
             return "info";
         }
+
+        //删除购物车中的商品
+        req.getSession().removeAttribute(CART_NAME);
+        //跳转到订单显示页面(Servlet)
+        return REDIRECT + "orderServlet.action?method=showOrderByOid&oid=" + order.getOid();
     }
 
     /**
@@ -68,6 +73,8 @@ public class OrderServlet extends BaseServlet {
      * @throws IOException
      */
     public String updateOrder(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //编程方式：正逻辑流程,使用if对错误逻辑进行处理
+
         String oid = req.getParameter("oid");
         OrderServiceImpl orderService = new OrderServiceImpl();
         Order order = orderService.findByOidWithAll(oid);
@@ -83,14 +90,13 @@ public class OrderServlet extends BaseServlet {
 
         boolean is = orderService.update(order);
         // 对创建订单结果进行判断处理
-        if (is) {
-            //更新订单信息成功
-            //跳转到支付页面
-            return REDIRECT + "orderServlet.action?method=showOrderByOid&oid=" + oid;
-        } else {
+        if (!is) {
             req.setAttribute("message", "更新订单信息失败！");
             return "info";
         }
+
+        //更新订单信息成功
+        return REDIRECT + "orderServlet.action?method=showOrderByOid&oid=" + oid;
     }
 
     public String showOrderByOid(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -123,10 +129,16 @@ public class OrderServlet extends BaseServlet {
      * 从购物车中读取商品条目列表
      */
     private ArrayList<OrderItem> getOrderItem(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //编程方式：正逻辑流程,使用if对错误逻辑进行处理
 
         //从购物车中读取商品条目
         HttpSession session = req.getSession();
         Cart cart = (Cart) session.getAttribute(CART_NAME);
+
+        if (cart == null) {
+            return null;
+        }
+
         Map<String, CartItem> cartItemMap = cart.getCartItemMap();
 
         //生成商品条目列表
@@ -139,6 +151,7 @@ public class OrderServlet extends BaseServlet {
             orderItem.setSubPrice(cartItem.getSubPrice());
             orderItemList.add(orderItem);
         }
+
         return orderItemList;
     }
 }

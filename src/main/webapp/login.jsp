@@ -26,11 +26,11 @@
             float:left; */
         }
 
-        font {
-            color: #666;
-            font-size: 22px;
+        .span_font {
+            color: #3164af;
+            font-size: 18px;
             font-weight: normal;
-            padding-right: 17px;
+            padding: 0 10px;
         }
     </style>
 </head>
@@ -46,8 +46,8 @@
 
         <div class="col-md-5">
             <div style="width:440px;border:1px solid #E7E7E7;padding:20px 0 20px 30px;border-radius:5px;margin-top:60px;background:#fff;">
-                <font>会员登录</font>USER LOGIN ${message}
-
+                <span class="span_font">会员登录</span>USER LOGIN
+                <span class="label label-danger" style="font-size: 120%;margin-left: 20px;">${message}</span>
                 <div>&nbsp;</div>
                 <form class="form-horizontal" action="userServlet.action">
                     <input type="hidden" name="method" value="login">

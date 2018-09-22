@@ -12,10 +12,10 @@
     <div class="col-md-4">
         <img src="img/header.png"/>
     </div>
-    <div class="col-md-4" style="padding-top:20px">
+    <div class="col-md-4" style="padding-top:20px;">
         <c:if test="${sessionScope.user!=null}">
-            <ol class="list-inline">
-                <li>用户： <a href="index.jsp" style="font-size: 150%;">
+            <ol class="list-inline" style="margin: auto;text-align: center;">
+                <li>用户:<a href="index.jsp" style="font-size: 120%;">
                         ${user.username}
                     <c:if test="${user.name!=null}">
                         (${user.name})
@@ -27,7 +27,7 @@
             </ol>
         </c:if>
         <c:if test="${sessionScope.user==null}">
-            <ol class="list-inline">
+            <ol class="list-inline" class="list-inline" style="margin: auto;text-align: center;">
                 <li><a href="login.jsp">登录</a></li>
                 <li><a href="register.jsp">注册</a></li>
             </ol>

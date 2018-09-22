@@ -29,6 +29,7 @@ public class CartServlet extends BaseServlet {
      * @throws IOException
      */
     public String addCart(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //编程方式：正逻辑流程,使用if对错误逻辑进行处理
 
         String pid = req.getParameter("pid");
         int quantity = Integer.valueOf(req.getParameter("quantity"));
@@ -73,7 +74,8 @@ public class CartServlet extends BaseServlet {
      * @throws IOException
      */
     public String updateCart(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
+        //编程方式：正逻辑流程,使用if对错误逻辑进行处理
+
         String pid = req.getParameter("pid");
         int quantity = Integer.valueOf(req.getParameter("quantity"));
 

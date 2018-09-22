@@ -75,6 +75,7 @@ public class PlayServlet extends BaseServlet {
      * @throws IOException
      */
     public String playBack(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //编程方式：正逻辑流程,使用if对错误逻辑进行处理
 
         //获取参数
         String p1_MerId = request.getParameter("p1_MerId");
@@ -102,28 +103,26 @@ public class PlayServlet extends BaseServlet {
         boolean isValid = PaymentUtil.verifyCallback(hmac, p1_MerId, r0_Cmd,
                 r1_Code, r2_TrxId, r3_Amt, r4_Cur, r5_Pid, r6_Order, r7_Uid,
                 r8_MP, r9_BType, keyValue);
-        //正确
-        if (isValid) {
-            //更新数据库
-            handlerPlaySuccess(r6_Order);
-
-            //判断通知类型(点对点|重定向)
-            if (r9_BType.equals("1")) {
-                //跳转页面，提示用户支付成功！
-                request.setAttribute("message", "支付成功！");
-            } else {
-                //回复易宝 success
-                response.getWriter().write("success");
-                response.getWriter().flush();
-                return null;
-            }
-
-
-        }
-        //不正确
-        else {
+        //数据校验失败
+        if (!isValid) {
             //提示错误信息
-            request.setAttribute("msg", "hmac你小子是不是弄错了！");
+            request.setAttribute("message", "数据校验失败，系统已记录错误信息。");
+            //提前返回，不在处理数据
+            return "info";
+        }
+
+        //更新数据库
+        handlerPlaySuccess(r6_Order);
+
+        //判断通知类型(点对点|重定向)
+        if (r9_BType.equals("1")) {
+            //跳转页面，提示用户支付成功！
+            request.setAttribute("message", "支付成功！");
+        } else {
+            //回复易宝 success
+            response.getWriter().write("success");
+            response.getWriter().flush();
+            return null;
         }
 
         return "info";

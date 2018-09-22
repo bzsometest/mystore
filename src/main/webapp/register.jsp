@@ -26,7 +26,7 @@
             float:left; */
         }
 
-        font {
+        .span_font {
             color: #3164af;
             font-size: 18px;
             font-weight: normal;
@@ -44,7 +44,8 @@
         <div class="col-md-2"></div>
 
         <div class="col-md-8" style="background:#fff;padding:40px 80px;margin:30px;border:7px solid #ccc;">
-            <font>会员注册</font>USER REGISTER
+            <span class="span_font">会员注册</span>USER REGISTER
+            <span class="label label-danger" style="font-size: 120%;margin-left: 20px;">${message}</span>
             <form class="form-horizontal" style="margin-top:5px;" action="userServlet.action">
                 <input type="hidden" name="method" value="register">
                 <div class="form-group">
@@ -68,25 +69,25 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
-                    <div class="col-sm-6">
-                        <input type="email" name="email" class="form-control" id="inputEmail3" placeholder="Email">
+                    <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+                    <div class="col-sm-6"  title="请准确填写邮箱，以便成功注册账号。" data-placement="right">
+                        <input type="email" name="email" class="form-control" id="inputEmail" placeholder="Email">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="usercaption" class="col-sm-2 control-label">姓名</label>
+                    <label for="name" class="col-sm-2 control-label">姓名</label>
                     <div class="col-sm-6">
-                        <input type="text" name="name" class="form-control" id="usercaption" placeholder="请输入姓名">
+                        <input type="text" name="name" class="form-control" id="name" placeholder="请输入姓名">
                     </div>
                 </div>
                 <div class="form-group opt">
                     <label for="inlineRadio1" class="col-sm-2 control-label">性别</label>
                     <div class="col-sm-6">
                         <label class="radio-inline">
-                            <input type="radio" name="sex" id="inlineRadio1" value="option1"> 男
+                            <input type="radio" name="sex" id="inlineRadio1" value="M"> 男
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="sex" id="inlineRadio2" value="option2"> 女
+                            <input type="radio" name="sex" id="inlineRadio2" value="F"> 女
                         </label>
                     </div>
                 </div>
@@ -128,6 +129,7 @@
 <script>
     $(function () {
         $("#checkCode").click();
+        $('#inputEmail').parent().tooltip('show');
     });
     $("#checkCode").click(function () {
         var codeUrl = "checkCode.action?" + Math.random();
@@ -136,6 +138,7 @@
     $("#username").blur(function () {
         validateUsername();
     });
+
 
     function validateUsername() {
         $.get("userServlet.action", {method: "checkUsername", username: $("#username").val()}, function (data) {

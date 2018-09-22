@@ -32,6 +32,7 @@ public class UserServlet extends BaseServlet {
      * @throws IOException
      */
     public String register(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //编程方式：正逻辑流程,使用if对错误逻辑进行处理
 
         if (!validateCode(req)) {
             req.setAttribute("message", "验证码错误!");
@@ -45,16 +46,21 @@ public class UserServlet extends BaseServlet {
             UserServiceImpl userService = new UserServiceImpl();
             userService.setWebPath(ServletUtils.getWebPath(req));
             boolean is = userService.register(user);
-            if (is) {
-                return REDIRECT + "login.jsp";
+            if (!is) {
+                req.setAttribute("message", "注册失败，请重试!");
+                return "register";
             }
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
             e.printStackTrace();
+        } catch (Exception e) {
+            req.setAttribute("message", "注册失败，数据提交不符合要求!");
+            return "register";
         }
-        req.setAttribute("message", "注册失败，请重试!");
-        return "register";
+
+        req.setAttribute("message", "注册成功，请查收注册邮件!");
+        return "info";
     }
 
     /**
