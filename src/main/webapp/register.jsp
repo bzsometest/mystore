@@ -70,7 +70,7 @@
                 </div>
                 <div class="form-group">
                     <label for="inputEmail" class="col-sm-2 control-label">Email</label>
-                    <div class="col-sm-6"  title="请准确填写邮箱，以便成功注册账号。" data-placement="right">
+                    <div class="col-sm-6"  title="请准确填写邮箱，以便成功注册。" data-placement="right">
                         <input type="email" name="email" class="form-control" id="inputEmail" placeholder="Email">
                     </div>
                 </div>

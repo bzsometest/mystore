@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : tvps.bzchao.com_chao
-Source Server Version : 50711
-Source Host           : tvps.bzchao.com:3306
+Source Server         : localhost_3306
+Source Server Version : 50553
+Source Host           : localhost:3306
 Source Database       : mystore
 
 Target Server Type    : MYSQL
-Target Server Version : 50711
+Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2018-09-22 20:42:33
+Date: 2018-09-22 22:23:34
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -34,35 +34,8 @@ INSERT INTO `category` VALUES ('2', '电脑办公');
 INSERT INTO `category` VALUES ('3', '家具家居');
 INSERT INTO `category` VALUES ('4', '鞋靴箱包');
 INSERT INTO `category` VALUES ('5', '图书音像');
-INSERT INTO `category` VALUES ('6', '母婴孕婴');
 INSERT INTO `category` VALUES ('a72934bd636d485c98fd2d3d9cccd409', '运动户外');
 INSERT INTO `category` VALUES ('afdba41a139b4320a74904485bdb7719', '汽车用品');
-
--- ----------------------------
--- Table structure for order_item
--- ----------------------------
-DROP TABLE IF EXISTS `order_item`;
-CREATE TABLE `order_item` (
-  `item_id` varchar(32) NOT NULL,
-  `oid` varchar(32) DEFAULT NULL,
-  `pid` varchar(32) DEFAULT NULL,
-  `count` int(11) DEFAULT NULL,
-  `sub_price` double DEFAULT NULL,
-  PRIMARY KEY (`item_id`),
-  KEY `fk_0001` (`pid`),
-  KEY `fk_0002` (`oid`),
-  CONSTRAINT `fk_0001` FOREIGN KEY (`pid`) REFERENCES `product` (`pid`),
-  CONSTRAINT `fk_0002` FOREIGN KEY (`oid`) REFERENCES `orders` (`oid`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of order_item
--- ----------------------------
-INSERT INTO `order_item` VALUES ('37050f33936640eaa5766e1835f25181', 'd902d6801fa64375ae6c3f423dcf480e', '12', '1', '1799');
-INSERT INTO `order_item` VALUES ('4b1b5ca0acc14a3991d675f8ec6b3d8e', 'cfc365dd24574aeaa39a35e3b3ed6fc3', '11', '1', '2298');
-INSERT INTO `order_item` VALUES ('d7aaa55f0e8e43c198394793173963a5', '3349cc6e9ebf4c499fbbb6b3ced1404c', '10', '111', '288489');
-INSERT INTO `order_item` VALUES ('dbe0507c1abd437f9cc75e8e6ceb46ee', '3349cc6e9ebf4c499fbbb6b3ced1404c', '11', '13', '29874');
-INSERT INTO `order_item` VALUES ('fd1e2c763c2e4af6a10ebaaaabbd1bb7', '3349cc6e9ebf4c499fbbb6b3ced1404c', '12', '11', '19789');
 
 -- ----------------------------
 -- Table structure for orders
@@ -85,9 +58,46 @@ CREATE TABLE `orders` (
 -- ----------------------------
 -- Records of orders
 -- ----------------------------
+INSERT INTO `orders` VALUES ('244ff4475501433c88588e59ed557425', '2f819c41153941268f19a8e6d23b9fc8', '2298', '2018-09-22 20:14:13', null, '0', null, null);
 INSERT INTO `orders` VALUES ('3349cc6e9ebf4c499fbbb6b3ced1404c', 'f55b7d3a352a4f0782c910b2c70f1ea4', null, '2018-09-22 15:40:49', '', '0', '四川巴中', '');
+INSERT INTO `orders` VALUES ('5613db1dc2af4695a8bae6e469e7557d', null, '2298', '2018-09-22 20:28:22', null, '0', null, null);
+INSERT INTO `orders` VALUES ('8ca7b75d7af145ff99b30f39f9946a71', null, '0.01', '2018-09-22 20:03:50', null, '0', null, null);
+INSERT INTO `orders` VALUES ('9f9f23618415449582d8e555fc9ea91a', null, '2298', '2018-09-22 20:07:26', null, '0', null, null);
+INSERT INTO `orders` VALUES ('a9467db6e2cf48f59ee0ac8839fbb894', null, '2599', '2018-09-22 20:06:25', null, '0', null, null);
 INSERT INTO `orders` VALUES ('cfc365dd24574aeaa39a35e3b3ed6fc3', 'f55b7d3a352a4f0782c910b2c70f1ea4', '2298', '2018-09-22 18:46:29', null, '1', null, null);
-INSERT INTO `orders` VALUES ('d902d6801fa64375ae6c3f423dcf480e', '62ddf3d58b934d0798ccc1885929afa5', '1799', '2018-09-22 20:32:05', null, '1', null, null);
+INSERT INTO `orders` VALUES ('dc26466d6faf4f74b48b6ffbdbd2da99', null, '2599', '2018-09-22 20:26:05', null, '0', null, null);
+INSERT INTO `orders` VALUES ('fa2e20172210440185bba4aafa1d3f24', 'c95b15a864334adab3d5bb6604c6e1fc', '2298', '2018-09-22 20:29:26', null, '0', null, null);
+
+-- ----------------------------
+-- Table structure for order_item
+-- ----------------------------
+DROP TABLE IF EXISTS `order_item`;
+CREATE TABLE `order_item` (
+  `item_id` varchar(32) NOT NULL,
+  `oid` varchar(32) DEFAULT NULL,
+  `pid` varchar(32) DEFAULT NULL,
+  `count` int(11) DEFAULT NULL,
+  `sub_price` double DEFAULT NULL,
+  PRIMARY KEY (`item_id`),
+  KEY `fk_0001` (`pid`),
+  KEY `fk_0002` (`oid`),
+  CONSTRAINT `fk_0001` FOREIGN KEY (`pid`) REFERENCES `product` (`pid`),
+  CONSTRAINT `fk_0002` FOREIGN KEY (`oid`) REFERENCES `orders` (`oid`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of order_item
+-- ----------------------------
+INSERT INTO `order_item` VALUES ('3084e0f5578a4dd99a07a390aee70681', 'fa2e20172210440185bba4aafa1d3f24', '11', '1', '2298');
+INSERT INTO `order_item` VALUES ('4b1b5ca0acc14a3991d675f8ec6b3d8e', 'cfc365dd24574aeaa39a35e3b3ed6fc3', '11', '1', '2298');
+INSERT INTO `order_item` VALUES ('8e87cabeb45f46d38e7fdb03253358af', '5613db1dc2af4695a8bae6e469e7557d', '11', '1', '2298');
+INSERT INTO `order_item` VALUES ('a5cf169fb81d459787a38e28bdc41ae7', '9f9f23618415449582d8e555fc9ea91a', '11', '1', '2298');
+INSERT INTO `order_item` VALUES ('a68cd80ab98b4540aced227b2e90eb17', 'a9467db6e2cf48f59ee0ac8839fbb894', '10', '1', '2599');
+INSERT INTO `order_item` VALUES ('be06201824c24b958e4094a191d8f592', 'dc26466d6faf4f74b48b6ffbdbd2da99', '10', '1', '2599');
+INSERT INTO `order_item` VALUES ('c16a1018c18b44609820b3396cf5b18c', '8ca7b75d7af145ff99b30f39f9946a71', '112', '1', '0.01');
+INSERT INTO `order_item` VALUES ('d7aaa55f0e8e43c198394793173963a5', '3349cc6e9ebf4c499fbbb6b3ced1404c', '10', '111', '288489');
+INSERT INTO `order_item` VALUES ('dbe0507c1abd437f9cc75e8e6ceb46ee', '3349cc6e9ebf4c499fbbb6b3ced1404c', '11', '13', '29874');
+INSERT INTO `order_item` VALUES ('fd1e2c763c2e4af6a10ebaaaabbd1bb7', '3349cc6e9ebf4c499fbbb6b3ced1404c', '12', '11', '19789');
 
 -- ----------------------------
 -- Table structure for product
@@ -186,8 +196,15 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
+INSERT INTO `user` VALUES ('23200a80c2f64f3daf870fff43b1e07e', 'eee', 'eee', '吴青龙2', '153355720@qq.com', null, '2018-09-07', 'option1', '1', null);
 INSERT INTO `user` VALUES ('2f819c41153941268f19a8e6d23b9fc8', 'mark', '12345', '吴青龙', '153355720@qq.com', null, '2018-09-23', 'option2', '1', null);
-INSERT INTO `user` VALUES ('62ddf3d58b934d0798ccc1885929afa5', 'ccc', 'ccc', '', '1234234@qq.com', null, '2018-09-29', 'option1', '0', 'e62b585179bf4c02b62429be9ef1ac3c');
+INSERT INTO `user` VALUES ('30c29ab080394f829a6e29159899edba', 'admin1', '12345', 'FangDao232', 'wqrer@qq.com', null, '2018-09-14', 'option2', '0', '366929114444485495b7fdbaaeda6a68');
+INSERT INTO `user` VALUES ('3ca76a75e4f64db2bacd0974acc7c897', 'bb', 'bb', '张三', 'bbb@store.com', '15723689921', '1990-02-01', '男', '0', '1258e96181a9457987928954825189000bae305094a042d6bd9d2d35674684e6');
+INSERT INTO `user` VALUES ('4ddb0fc5984f49ddb49f2e844abf7d28', 'admin1123', '12345', 'FangDao232', '153355720@qq.com', null, '2018-09-14', 'option2', '0', '6d7b33faafc74e77afc6e13fa830370e');
+INSERT INTO `user` VALUES ('62145f6e66ea4f5cbe7b6f6b954917d3', 'ccc', 'ccc', '张三', 'bbb@store.com', '15723689921', '2015-11-03', '男', '0', '19f100aa81184c03951c4b840a725b6a98097aa1106a4a38ba1c29f1a496c231');
+INSERT INTO `user` VALUES ('7a77f25c0d784668bfeb1ba9c6f7f2d3', 'ddd', 'ddd', '陈光超', '153355720@qq.com', null, '2018-09-29', 'M', '1', null);
+INSERT INTO `user` VALUES ('a04cfedcf01e46d591297ace901c2810', 'wuerwa', '123456', '吴二娃', '33r@qq.com', null, '2018-09-13', 'option2', '0', '110f4f351dd64dd89070dd0cad311c67');
+INSERT INTO `user` VALUES ('af091c33b91749a6a961588d4b77e598', 'admin112333', '12345', 'FangDao232', '153355720@qq.com', null, '2018-09-14', 'option2', '0', '292ee44544984a879456c500f7560839');
+INSERT INTO `user` VALUES ('b5133589a48b44338b8829ea7a59acea', 'qwerqewr1234123', '12345', '吴青龙2', '33r@qq.com', null, '2018-09-14', 'option2', '0', 'aea14a4a6f994c5ca8ec465b14cb50cc');
 INSERT INTO `user` VALUES ('c95b15a864334adab3d5bb6604c6e1fc', 'bbb', 'bbb', '老王', 'bbb@store.com', '15712344823', '2000-02-01', '男', '0', '71a3a933353347a4bcacff699e6baa9c950a02f6b84e4f6fb8404ca06febfd6f');
 INSERT INTO `user` VALUES ('f55b7d3a352a4f0782c910b2c70f1ea4', 'aaa', 'aaa', '小王', 'aaa@store.com', '15712344823', '2000-02-01', '男', '1', null);
-INSERT INTO `user` VALUES ('f660900e2ee14e539f2190004f56150a', '123', '123', '', '', null, null, null, '0', '1d42bf274d86414fbfe445a7b8e1d8ad');
