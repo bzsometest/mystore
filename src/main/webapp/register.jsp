@@ -1,38 +1,38 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<head></head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>会员登录</title>
-<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css"/>
-<script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
-<script src="js/bootstrap.min.js" type="text/javascript"></script>
-<!-- 引入自定义css文件 style.css -->
-<link rel="stylesheet" href="css/style.css" type="text/css"/>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>用户注册</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css"/>
+    <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
+    <script src="js/bootstrap.min.js" type="text/javascript"></script>
+    <!-- 引入自定义css文件 style.css -->
+    <link rel="stylesheet" href="css/style.css" type="text/css"/>
 
-<style>
-    body {
-        margin-top: 20px;
-        margin: 0 auto;
-    }
+    <style>
+        body {
+            margin-top: 20px;
+            margin: 0 auto;
+        }
 
-    .carousel-inner .item img {
-        width: 100%;
-        height: 300px;
-    }
+        .carousel-inner .item img {
+            width: 100%;
+            height: 300px;
+        }
 
-    .container .row div {
-        /* position:relative;
-        float:left; */
-    }
+        .container .row div {
+            /* position:relative;
+            float:left; */
+        }
 
-    font {
-        color: #3164af;
-        font-size: 18px;
-        font-weight: normal;
-        padding: 0 10px;
-    }
-</style>
+        font {
+            color: #3164af;
+            font-size: 18px;
+            font-weight: normal;
+            padding: 0 10px;
+        }
+    </style>
 </head>
 <body>
 
