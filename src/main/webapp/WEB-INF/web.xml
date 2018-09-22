@@ -20,5 +20,6 @@
         <!--“/*”表示拦截所有的请求 -->
         <url-pattern>/index.jsp</url-pattern>
         <url-pattern>/cart.htm</url-pattern>
+        <url-pattern>/orderServlet.action</url-pattern>
     </filter-mapping>
 </web-app>

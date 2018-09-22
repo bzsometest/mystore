@@ -1,4 +1,6 @@
-﻿<!doctype html>
+﻿<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 
 <head>
@@ -44,53 +46,57 @@
                     <th>数量</th>
                     <th>小计</th>
                 </tr>
-                <tr class="active">
-                    <td width="60" width="40%">
-                        <input type="hidden" name="id" value="22">
-                        <img src="./image/dadonggua.jpg" width="70" height="60">
-                    </td>
-                    <td width="30%">
-                        <a target="_blank"> 有机蔬菜 大冬瓜...</a>
-                    </td>
-                    <td width="20%">
-                        ￥298.00
-                    </td>
-                    <td width="10%">
-                        5
-                    </td>
-                    <td width="15%">
-                        <span class="subtotal">￥596.00</span>
-                    </td>
-                </tr>
+                <c:forEach items="${sessionScope.cartItemMap}" var="cartItem">
+                    <tr class="active">
+                        <td width="60" width="40%">
+                            <input type="hidden" name="id" value="22">
+                            <img src="${cartItem.value.product.pimage}" width="70" height="60">
+                        </td>
+                        <td width="30%">
+                            <a target="_blank">${cartItem.value.product.pname}</a>
+                        </td>
+                        <td width="20%">
+                            ￥${cartItem.value.product.shopPrice}
+                        </td>
+                        <td width="10%">
+                                ${cartItem.value.count}
+                        </td>
+                        <td width="15%">
+                            <span class="subtotal">￥${cartItem.value.subPrice}</span>
+                        </td>
+                    </tr>
+                </c:forEach>
                 </tbody>
             </table>
         </div>
 
         <div style="text-align:right;margin-right:120px;">
-            商品金额: <strong style="color:#ff6600;">￥596.00元</strong>
+            商品金额: <strong style="color:#ff6600;">￥${totalPrice}元</strong>
         </div>
 
     </div>
 
     <div>
         <hr/>
-        <form class="form-horizontal" style="margin-top:5px;margin-left:150px;">
+        <form id="orderForm" action="orderServlet.action" class="form-horizontal"
+              style="margin-top:5px;margin-left:150px;">
+            <input type="hidden" name="method" value="confirmOrder">
             <div class="form-group">
-                <label for="username" class="col-sm-1 control-label">地址</label>
+                <label for="address" class="col-sm-1 control-label">地址</label>
                 <div class="col-sm-5">
-                    <input type="text" class="form-control" id="username" placeholder="请输入收货地址">
+                    <input type="text" class="form-control" name="address" id="address" placeholder="请输入收货地址">
                 </div>
             </div>
             <div class="form-group">
-                <label for="inputPassword3" class="col-sm-1 control-label">收货人</label>
+                <label for="name" class="col-sm-1 control-label">收货人</label>
                 <div class="col-sm-5">
-                    <input type="password" class="form-control" id="inputPassword3" placeholder="请输收货人">
+                    <input type="text" class="form-control" name="name" id="name" placeholder="请输收货人">
                 </div>
             </div>
             <div class="form-group">
-                <label for="confirmpwd" class="col-sm-1 control-label">电话</label>
+                <label for="telephone" class="col-sm-1 control-label">电话</label>
                 <div class="col-sm-5">
-                    <input type="password" class="form-control" id="confirmpwd" placeholder="请输入联系方式">
+                    <input type="text" class="form-control" name="telephone" id="telephone" placeholder="请输入联系方式">
                 </div>
             </div>
         </form>

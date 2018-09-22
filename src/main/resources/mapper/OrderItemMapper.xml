@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 配置命名空间，区别名称 -->
+<mapper namespace="com.bzchao.mystore.dao.OrderItemDao">
+
+    <sql id="allCols">
+           item_id,oid,pid,count,sub_price
+    </sql>
+    <resultMap id="orderMap" type="Order">
+        <id property="itemId" column="item_id"></id>
+        <result property="subPrice" column="sub_price"></result>
+    </resultMap>
+
+    <insert id="insert" parameterType="OrderItem">
+       insert  into order_item (item_id,oid,pid,count,sub_price)
+      values (#{itemId},#{oid},#{pid},#{count},#{subPrice})
+    </insert>
+
+</mapper>

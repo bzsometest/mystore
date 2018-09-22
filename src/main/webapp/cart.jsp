@@ -90,7 +90,7 @@
         <div style="text-align:right;">
             <em style="color:#ff6600;">
                 登录后确认是否享有优惠&nbsp;&nbsp;
-            </em> 赠送积分: <em style="color:#ff6600;">${totalPrice/10}</em>&nbsp;
+            </em> 赠送积分: <em style="color:#ff6600;" id="nodes">${totalPrice/10}</em>&nbsp;
             商品金额: <strong style="color:#ff6600;">￥<span id="totalPrice">${totalPrice}</span>元</strong>
         </div>
         <div style="text-align:right;margin-top:10px;margin-bottom:10px;">
@@ -124,6 +124,7 @@
                 var totalPrice = data.totalPrice;
                 _this_tr.find(".subPrice").text(subPrice);
                 $("#totalPrice").text(totalPrice);
+                $("#nodes").text(totalPrice/10);
             }
         });
 
