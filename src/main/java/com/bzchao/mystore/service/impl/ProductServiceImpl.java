@@ -49,6 +49,7 @@ public class ProductServiceImpl implements ProductService {
         ProductDao productDao = sqlSession.getMapper(ProductDao.class);
 
         List<Product> productList = productDao.findByCidLimit(cid, start, pageSize);
+
         sqlSession.close();
         return productList;
     }

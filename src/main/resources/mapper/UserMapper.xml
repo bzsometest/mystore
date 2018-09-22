@@ -6,7 +6,7 @@
 <mapper namespace="com.bzchao.mystore.dao.UserDao">
 
     <sql id="allCols">
- uid,username,password, name,email,telephone, birthday, sex, state,code
+      uid,username,password, name,email,telephone, birthday, sex, state,code
     </sql>
 
     <select id="findByUsername" parameterType="String" resultType="User">

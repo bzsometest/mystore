@@ -90,7 +90,8 @@ public class UserServlet extends BaseServlet {
             resp.addCookie(cookie);
         }
 
-        req.getSession().setAttribute("user", user);
+        //一定要存取获得到新用户！某则无法获得uid
+        req.getSession().setAttribute("user", newUser);
         return REDIRECT + "index.jsp";
     }
 

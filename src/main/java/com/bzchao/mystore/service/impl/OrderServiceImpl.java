@@ -68,7 +68,7 @@ public class OrderServiceImpl implements OrderService {
 
         SqlSession sqlSession = MybatisUtil.getSessionFactory().openSession();
         OrderDao orderDao = sqlSession.getMapper(OrderDao.class);
-
+        System.out.println("OrderServiceImpl:" + order);
         //在数据库中创建订单
         int res = orderDao.insert(order);
         sqlSession.commit();
@@ -81,7 +81,7 @@ public class OrderServiceImpl implements OrderService {
 
         //警告！必须先关闭创建order的session，某则，将导致order被锁定！无法增加商品条目，导致死锁
         //在数据库中创建商品条目列表
-        addOrderItem(order.getOrderItemList(),oid);
+        addOrderItem(order.getOrderItemList(), oid);
 
         return order;
     }
@@ -109,7 +109,7 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    public void addOrderItem(List<OrderItem> orderItemList,String oid) {
+    public void addOrderItem(List<OrderItem> orderItemList, String oid) {
         SqlSession sqlSession = MybatisUtil.getSessionFactory().openSession();
         OrderItemDao orderItemDao = sqlSession.getMapper(OrderItemDao.class);
 

@@ -7,6 +7,7 @@ import com.bzchao.mystore.utils.MailUtils;
 import com.bzchao.mystore.utils.MybatisUtil;
 import com.bzchao.mystore.utils.ServletUtils;
 import org.apache.ibatis.session.SqlSession;
+import org.junit.Test;
 
 import java.util.UUID;
 
@@ -24,8 +25,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean register(User user) {
-        boolean result = false;
-        user.setUid(UUID.randomUUID().toString().replaceAll("-", ""));
+        //两次生成的UUID不能相同
+        String uid = UUID.randomUUID().toString().replaceAll("-", "");
+        user.setUid(uid);
 
         //设置激活码
         String code = UUID.randomUUID().toString().replaceAll("-", "");
@@ -36,29 +38,31 @@ public class UserServiceImpl implements UserService {
         SqlSession sqlSession = MybatisUtil.getSessionFactory().openSession();
         UserDao userDao = sqlSession.getMapper(UserDao.class);
 
-        userDao.save(user);
-
+        int res = userDao.save(user);
         sqlSession.commit();
         sqlSession.close();
 
-        //TODO 发送一封激活邮件
+        if (res < 1) {
+            return false;
+        }
+
         sendRegisterEmail(user);
 
-        result = true;
-
-        return result;
+        return true;
     }
 
     @Override
     public User login(User user) {
         SqlSession sqlSession = MybatisUtil.getSessionFactory().openSession();
         UserDao userDao = sqlSession.getMapper(UserDao.class);
-        return userDao.login(user);
+        User userLogin = userDao.login(user);
+
+        sqlSession.close();
+        return userLogin;
     }
 
     @Override
     public boolean active(String code) {
-        boolean result = false;
 
         SqlSession sqlSession = MybatisUtil.getSessionFactory().openSession();
 
@@ -67,10 +71,7 @@ public class UserServiceImpl implements UserService {
         sqlSession.commit();
         sqlSession.close();
 
-        if (count == 1) {
-            result = true;
-        }
-        return result;
+        return count > 0;
     }
 
     private void sendRegisterEmail(final User user) {
@@ -95,5 +96,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void setWebPath(String path) {
         webPath = path;
+    }
+
+    @Test
+    public void test() {
+        User ccc = findByUsername("ccc");
+        System.out.println(ccc);
     }
 }
