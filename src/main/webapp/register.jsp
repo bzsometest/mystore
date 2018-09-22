@@ -38,7 +38,7 @@
 
 <jsp:include page="header.jsp"></jsp:include>
 
-<div class="container" style="width:100%;background:url('image/regist_bg.jpg');">
+<div class="container" style="width:100%;background:url('images/regist_bg.jpg');">
     <div class="row">
 
         <div class="col-md-2"></div>
