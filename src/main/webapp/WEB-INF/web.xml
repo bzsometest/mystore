@@ -11,7 +11,7 @@
     <!--配置过滤器-->
     <filter>
         <filter-name>autoLoginFilter</filter-name>
-        <filter-class>com.bzchao.mystore.filter.AutoLoginFilter</filter-class>
+        <filter-class>com.bzchao.mystore.web.filter.AutoLoginFilter</filter-class>
     </filter>
 
     <!--映射过滤器-->

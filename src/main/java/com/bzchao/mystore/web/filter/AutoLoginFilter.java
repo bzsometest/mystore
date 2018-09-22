@@ -1,10 +1,9 @@
-package com.bzchao.mystore.filter;
+package com.bzchao.mystore.web.filter;
 
 import com.bzchao.mystore.entity.User;
 import com.bzchao.mystore.service.impl.UserServiceImpl;
 import com.bzchao.mystore.utils.CookieUtils;
 
-import javax.mail.Session;
 import javax.servlet.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
