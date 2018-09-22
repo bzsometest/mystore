@@ -9,10 +9,10 @@
     <div class="col-md-4">
         <img src="img/logo2.png"/>
     </div>
-    <div class="col-md-5">
+    <div class="col-md-4">
         <img src="img/header.png"/>
     </div>
-    <div class="col-md-3" style="padding-top:20px">
+    <div class="col-md-4" style="padding-top:20px">
         <c:if test="${sessionScope.user!=null}">
             <ol class="list-inline">
                 <li>用户： <a href="index.jsp" style="font-size: 150%;">
