@@ -1,13 +1,10 @@
 package com.bzchao.mystore.utils;
 
-import com.bzchao.mystore.entity.Category;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
-import org.junit.Test;
 
 import java.net.URL;
-import java.util.List;
 
 public class CacheUtils {
     private static final String CACHE_NAME = "myStore";

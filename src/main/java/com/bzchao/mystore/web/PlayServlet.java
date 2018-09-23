@@ -4,6 +4,8 @@ import com.bzchao.mystore.entity.Order;
 import com.bzchao.mystore.service.impl.OrderServiceImpl;
 import com.bzchao.mystore.utils.PaymentUtil;
 import com.bzchao.mystore.utils.ServletUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,6 +15,9 @@ import java.io.IOException;
 
 @WebServlet("/playServlet.action")
 public class PlayServlet extends BaseServlet {
+
+    private final static Logger logger = LoggerFactory.getLogger(PlayServlet.class);
+
     /**
      * 用户支付订单
      *
@@ -24,6 +29,7 @@ public class PlayServlet extends BaseServlet {
      */
     public String playOrder(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String oid = req.getParameter("oid");
+        String pd_FrpId = req.getParameter("pd_FrpId");
 
         String p0_Cmd = "Buy";
         String p1_MerId = "10001126856";// 真实
@@ -36,7 +42,6 @@ public class PlayServlet extends BaseServlet {
         String p8_Url = ServletUtils.getWebPath(req) + "/playServlet.action?method=playBack";
         String p9_SAF = "";
         String pa_MP = "";
-        String pd_FrpId = "CCB-NET-B2C";
         String pr_NeedResponse = "";
 
         String keyValue = "69cl522AV6q613Ii4W6u8K6XuW8vM1N6bFgyv769220IuYe9u37N4y7rI4Pl";
@@ -75,6 +80,7 @@ public class PlayServlet extends BaseServlet {
      * @throws IOException
      */
     public String playBack(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        logger.debug("收到回调：{}", request.getQueryString());
         //编程方式：正逻辑流程,使用if对错误逻辑进行处理
 
         //获取参数
@@ -121,6 +127,7 @@ public class PlayServlet extends BaseServlet {
         } else {
             //回复易宝 success
             response.getWriter().write("success");
+
             response.getWriter().flush();
             return null;
         }

@@ -78,9 +78,11 @@
 
     <div class="container-fluid">
         <hr/>
-        <form id="orderForm" action="orderServlet.action" class="form-horizontal" style="margin:5px;margin-left: 100px;">
-            <input type="hidden" name="method" value="updateOrder">
+        <%--订单信息表单--%>
+        <form id="orderForm" action="orderServlet.action" class="form-horizontal"
+              style="margin:5px;margin-left: 100px;">
             <input type="hidden" name="oid" value="${order.oid}">
+            <input type="hidden" name="method" value="updateOrder">
             <div class="form-group">
                 <label for="address" class="col-sm-1 control-label">地址</label>
                 <div class="col-sm-5">
@@ -102,48 +104,52 @@
                            placeholder="请输入联系方式" value="${order.telephone}">
                 </div>
             </div>
+
         </form>
 
         <hr/>
+        <%--订单支付表单--%>
+        <form id="playForm" action="playServlet.action" class="form-horizontal">
+            <div class="container" style="margin-top:5px;margin-left: 100px;">
+                <strong>选择银行：</strong>
+                <p>
+                    <input type="hidden" name="oid" value="${order.oid}">
+                    <input type="hidden" name="method" value="playOrder">
+                    <br/>
+                    <input type="radio" name="pd_FrpId" value="CCB-NET-B2C" checked="checked"/>建设银行
+                    <img src="./bank_img/ccb.bmp" align="middle"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="pd_FrpId" value="BOC-NET-B2C"/>中国银行
+                    <img src="./bank_img/bc.bmp" align="middle"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="pd_FrpId" value="ABC-NET-B2C"/>农业银行
+                    <img src="./bank_img/abc.bmp" align="middle"/>
+                    <br/>
+                    <br/>
+                    <input type="radio" name="pd_FrpId" value="CMBCHINA-NET-B2C"/>招商银行
+                    <img src="./bank_img/cmb.bmp" align="middle"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="pd_FrpId" value="PINGANBANK-NET"/>平安银行
+                    <img src="./bank_img/pingan.bmp" align="middle"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="pd_FrpId" value="CEB-NET-B2C"/>光大银行
+                    <img src="./bank_img/guangda.bmp" align="middle"/>
+                    <br/>
+                    <br/>
+                    <input type="radio" name="pd_FrpId" value="ICBC-NET-B2C"/>工商银行
+                    <img src="./bank_img/icbc.bmp" align="middle"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="pd_FrpId" value="BOCO-NET-B2C"/>交通银行
+                    <img src="./bank_img/bcc.bmp" align="middle"/>
+                </p>
+            </div>
+        </form>
 
-        <div style="margin-top:5px;margin-left: 100px;">
-            <strong>选择银行：</strong>
-            <p>
-                <br/>
-                <input type="radio" name="pd_FrpId" value="ICBC-NET-B2C" checked="checked"/>工商银行
-                <img src="./bank_img/icbc.bmp" align="middle"/>&nbsp;&nbsp;&nbsp;&nbsp;
-                <input type="radio" name="pd_FrpId" value="BOC-NET-B2C"/>中国银行
-                <img src="./bank_img/bc.bmp" align="middle"/>&nbsp;&nbsp;&nbsp;&nbsp;
-                <input type="radio" name="pd_FrpId" value="ABC-NET-B2C"/>农业银行
-                <img src="./bank_img/abc.bmp" align="middle"/>
-                <br/>
-                <br/>
-                <input type="radio" name="pd_FrpId" value="BOCO-NET-B2C"/>交通银行
-                <img src="./bank_img/bcc.bmp" align="middle"/>&nbsp;&nbsp;&nbsp;&nbsp;
-                <input type="radio" name="pd_FrpId" value="PINGANBANK-NET"/>平安银行
-                <img src="./bank_img/pingan.bmp" align="middle"/>&nbsp;&nbsp;&nbsp;&nbsp;
-                <input type="radio" name="pd_FrpId" value="CCB-NET-B2C"/>建设银行
-                <img src="./bank_img/ccb.bmp" align="middle"/>
-                <br/>
-                <br/>
-                <input type="radio" name="pd_FrpId" value="CEB-NET-B2C"/>光大银行
-                <img src="./bank_img/guangda.bmp" align="middle"/>&nbsp;&nbsp;&nbsp;&nbsp;
-                <input type="radio" name="pd_FrpId" value="CMBCHINA-NET-B2C"/>招商银行
-                <img src="./bank_img/cmb.bmp" align="middle"/>
-
-            </p>
-            <hr/>
-            <p style="text-align:right;margin-right:100px;">
-                <a href="javascript:document.getElementById('orderForm').submit();">
-                    <button class="btn btn-info btn-lg">更新订单信息</button>
-                </a>
-                <a href="playServlet.action?method=playOrder&oid=${order.oid}">
-                    <button class="btn btn-warning btn-lg">立即支付订单</button>
-                </a>
-            </p>
-            <hr/>
-
-        </div>
+        <hr/>
+        <p style="text-align:right;margin-right:200px;">
+            <a href="javascript:document.getElementById('orderForm').submit();">
+                <button class="btn btn-info btn-lg">更新订单信息</button>
+            </a>
+            <a href="javascript:document.getElementById('playForm').submit();" target="_blank">
+                <button class="btn btn-warning btn-lg">立即支付订单</button>
+            </a>
+        </p>
+        <hr/>
     </div>
 
 </div>
