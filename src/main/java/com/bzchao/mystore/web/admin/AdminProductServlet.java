@@ -138,19 +138,6 @@ public class AdminProductServlet extends BaseServlet {
         return "admin/welcome";
     }
 
-    public String login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        /*管理员登录验证*/
-        String adminName = request.getParameter("username");
-        String password = request.getParameter("password");
-        boolean b = "admin".equals(adminName) && "123456".equals(password);
-        if (!b) {
-            response.sendRedirect(request.getContextPath() + "/admin/login.jsp");
-        }
-        Cookie cookie = new Cookie("admin", adminName);
-        cookie.setMaxAge(60 * 60 * 24);
-        response.addCookie(cookie);
-        return "home";
-    }
 
     public String handleFile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Part part = request.getPart("upload");

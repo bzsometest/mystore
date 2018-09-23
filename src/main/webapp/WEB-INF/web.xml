@@ -1,4 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app [
+        <!ELEMENT web-app (welcome-file-list|filter|filter-mapping)*>
+        <!ATTLIST web-app
+                xmlns CDATA #REQUIRED
+                xmlns:xsi CDATA #REQUIRED
+                xsi:schemaLocation CDATA #REQUIRED
+                version CDATA #REQUIRED>
+        <!ELEMENT welcome-file-list (welcome-file)*>
+        <!ELEMENT welcome-file (#PCDATA)>
+        <!ELEMENT filter (filter-name|filter-class)*>
+        <!ELEMENT filter-name (#PCDATA)>
+        <!ELEMENT filter-class (#PCDATA)>
+        <!ELEMENT filter-mapping (filter-name|url-pattern)*>
+        <!ELEMENT url-pattern (#PCDATA)>
+        ]>
 <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
@@ -34,6 +49,6 @@
     <filter-mapping>
         <filter-name>adminLoginFilter</filter-name>
         <!--“/*”表示拦截所有的请求 -->
-        <url-pattern>/admin/index.jsp</url-pattern>
+        <url-pattern>/admin/indexx.jsp</url-pattern>
     </filter-mapping>
 </web-app>

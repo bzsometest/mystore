@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <HTML>
 <HEAD>
+    <base href="${pageContext.request.contextPath}/"/>
     <meta http-equiv="Content-Language" content="zh-cn">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <LINK href="${pageContext.request.contextPath}/css/Style1.css" type="text/css" rel="stylesheet">
@@ -15,7 +16,6 @@
     <input type="hidden" name="pid" value="${product.pid}">
     <input type="hidden" name="method" value="updateProduct">
 
-    &nbsp;
     <table cellSpacing="1" cellPadding="5" width="100%" align="center" bgColor="#eeeeee"
            style="border: 1px solid #8ba7e3" border="0">
         <tr>
@@ -85,8 +85,18 @@
             <td width="18%" align="center" bgColor="#f5fafe" class="ta_01">
                 商品描述：
             </td>
-            <td class="ta_01" bgColor="#ffffff" colspan="3">
-                <textarea name="pdesc" rows="5" cols="30">${product.pdesc }</textarea>
+            <td class="ta_01" bgColor="#ffffff" colspan="3" style="width: 80%;">
+                <!-- 加载编辑器的容器 -->
+                <script id="container" name="pdesc" type="text/plain">${product.pdesc} </script>
+                <!-- 配置文件 -->
+                <script type="text/javascript"
+                        src="${pageContext.request.contextPath}/ueditor/ueditor.config.js"></script>
+                <!-- 编辑器源码文件 -->
+                <script type="text/javascript" src="${pageContext.request.contextPath}/ueditor/ueditor.all.js"></script>
+                <!-- 实例化编辑器 -->
+                <script type="text/javascript">
+                    var ue = UE.getEditor('container');
+                </script>
             </td>
         </tr>
         <tr>
