@@ -51,7 +51,8 @@
                             </c:if>
                         </th>
                         <th colspan="1">
-                            <a href="playServlet.action?method=playOrder&oid=${order.oid}">支付</a>
+                            <a href="playServlet.action?method=playOrder&pd_FrpId=CCB-NET-B2C&oid=${order.oid}"
+                               title="建设银行支付">支付</a>
                             <a href="orderServlet.action?method=showOrderByOid&oid=${order.oid}">修改</a>
                             <a href="orderServlet.action?method=deleteOrder&oid=${order.oid}">删除</a>
                         </th>
