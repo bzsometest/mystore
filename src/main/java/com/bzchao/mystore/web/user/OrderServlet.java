@@ -1,7 +1,8 @@
-package com.bzchao.mystore.web;
+package com.bzchao.mystore.web.user;
 
 import com.bzchao.mystore.entity.*;
 import com.bzchao.mystore.service.impl.OrderServiceImpl;
+import com.bzchao.mystore.web.BaseServlet;
 import org.apache.commons.beanutils.BeanUtils;
 
 import javax.servlet.ServletException;
@@ -13,7 +14,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 @WebServlet("/orderServlet.action")
 public class OrderServlet extends BaseServlet {

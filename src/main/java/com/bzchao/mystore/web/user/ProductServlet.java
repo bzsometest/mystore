@@ -1,4 +1,4 @@
-package com.bzchao.mystore.web;
+package com.bzchao.mystore.web.user;
 
 import com.alibaba.fastjson.JSON;
 import com.bzchao.mystore.entity.Category;
@@ -6,6 +6,7 @@ import com.bzchao.mystore.entity.PageBean;
 import com.bzchao.mystore.entity.Product;
 import com.bzchao.mystore.service.impl.CategoryServiceImpl;
 import com.bzchao.mystore.service.impl.ProductServiceImpl;
+import com.bzchao.mystore.web.BaseServlet;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -48,6 +49,7 @@ public class ProductServlet extends BaseServlet {
 
         List<Product> productList = new ProductServiceImpl().findByCidPage(cid, page, count);
         int total = new ProductServiceImpl().getCountByCid(cid);
+
         PageBean pageBean = new PageBean();
         pageBean.setList(productList);
         pageBean.setTotalCount(total);

@@ -62,6 +62,7 @@ public class BaseServlet extends HttpServlet {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         } catch (Exception e) {
+            e.printStackTrace();
             resp.sendRedirect("http://www.bzchao.com/404.htm");
         }
     }

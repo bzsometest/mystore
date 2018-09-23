@@ -1,10 +1,11 @@
-package com.bzchao.mystore.web;
+package com.bzchao.mystore.web.user;
 
 import com.alibaba.fastjson.JSON;
 import com.bzchao.mystore.entity.Cart;
 import com.bzchao.mystore.entity.CartItem;
 import com.bzchao.mystore.entity.Product;
 import com.bzchao.mystore.service.impl.ProductServiceImpl;
+import com.bzchao.mystore.web.BaseServlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

@@ -21,19 +21,54 @@
         from product
         where pid = #{pid}
     </select>
-
+    <insert id="insert" parameterType="Product">
+        insert into product
+        (pid,pname,market_price,shop_price, pimage,pdate,is_hot, pdesc,pflag,cid)
+        values (#{pid},#{pname},#{marketPrice},#{shopPrice}, #{pimage},#{pdate},#{isHot},#{pdesc},#{pflag},#{cid})
+    </insert>
+    <update id="update">
+        update  product
+        set pname=#{pname},market_price=#{marketPrice},shop_price=#{shopPrice}, pimage=#{pimage},pdate=#{pdate},is_hot=#{isHot}, pdesc=#{pdesc},cid=#{cid}
+        where  pid=#{pid}
+    </update>
+    <update id="push">
+        update  product
+        set pflag = #{param2}
+        where pid = #{param1}
+    </update>
+    <delete id="delete" parameterType="String">
+        delete  from product
+        where pid =#{pid}
+    </delete>
     <select id="findHot" resultMap="productMap">
         select
         <include refid="allCols"/>
-        from product where is_hot = '1'
+        from product
+        where is_hot = '1'
+        order by pid
         limit 0,9
+    </select>
+
+    <select id="findAll" resultMap="productMap">
+        select
+        <include refid="allCols"/>
+        from product
+        order by pid
+    </select>
+
+    <select id="findByPush" resultMap="productMap">
+        select
+        <include refid="allCols"/>
+        from product
+        where pflag = #{state}
+        order by pid
     </select>
 
     <select id="findByCidLimit" resultMap="productMap">
         select
         <include refid="allCols"/>
         from product
-        where cid = #{param1}
+        where cid = #{param1} and pflag = 0
         limit #{param2},#{param3}
     </select>
 

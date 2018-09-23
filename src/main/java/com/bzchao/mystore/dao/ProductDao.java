@@ -10,7 +10,19 @@ public interface ProductDao {
 
     int getCountByCid(String cid);
 
+    int insert(Product product);
+
+    int update(Product product);
+
+    int delete(String pid);
+
+    int push(String pid, int state);
+
     List<Product> findHot();
+
+    List<Product> findAll();
+
+    List<Product> findByPush(int state);
 
     List<Product> findByCidLimit(String pid, int start, int count);
 

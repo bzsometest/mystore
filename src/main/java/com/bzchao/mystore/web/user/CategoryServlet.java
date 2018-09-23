@@ -1,8 +1,9 @@
-package com.bzchao.mystore.web;
+package com.bzchao.mystore.web.user;
 
 import com.alibaba.fastjson.JSON;
 import com.bzchao.mystore.entity.Category;
 import com.bzchao.mystore.service.impl.CategoryServiceImpl;
+import com.bzchao.mystore.web.BaseServlet;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;

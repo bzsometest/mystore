@@ -1,11 +1,11 @@
-package com.bzchao.mystore.web;
+package com.bzchao.mystore.web.user;
 
 import com.bzchao.mystore.entity.User;
 import com.bzchao.mystore.service.impl.UserServiceImpl;
 import com.bzchao.mystore.utils.CookieUtils;
-import com.bzchao.mystore.utils.MailUtils;
 import com.bzchao.mystore.utils.MyDateConverter;
 import com.bzchao.mystore.utils.ServletUtils;
+import com.bzchao.mystore.web.BaseServlet;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
 
@@ -98,7 +98,7 @@ public class UserServlet extends BaseServlet {
 
         //一定要存取获得到新用户！某则无法获得uid
         req.getSession().setAttribute("user", newUser);
-        return REDIRECT + "index.jsp";
+        return REDIRECT + "login.jsp";
     }
 
     public String logout(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
