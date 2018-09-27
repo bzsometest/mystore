@@ -1,4 +1,4 @@
-package com.bzchao.mystore.web.user;
+package com.bzchao.mystore.web.product;
 
 import com.bzchao.mystore.entity.*;
 import com.bzchao.mystore.service.impl.OrderServiceImpl;
@@ -36,7 +36,7 @@ public class OrderServlet extends BaseServlet {
         Order order = new Order();
 
         // 设置订单用户uid
-        User user = (User) req.getSession().getAttribute("user");
+        User user = (User) req.getSession().getAttribute("product");
         order.setUid(user.getUid());
 
         // 从购物车中读取商品条目列表
@@ -108,7 +108,7 @@ public class OrderServlet extends BaseServlet {
     }
 
     public String showOrderByUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User user = (User) req.getSession().getAttribute("user");
+        User user = (User) req.getSession().getAttribute("product");
         List<Order> orderList = new OrderServiceImpl().findByUidWithAll(user.getUid());
 
         req.setAttribute("orderList", orderList);

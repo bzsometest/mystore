@@ -6809,7 +6809,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          */
 
         /**
-         * 该方法是提供给插件里面使用，以{key:value}集合的方式设置插件内用到的配置项默认值
+         * 该方法是提供给插件里面使用，以{keyv-model}集合的方式设置插件内用到的配置项默认值
          * @method setOpt
          * @warning 三处设置配置项的优先级: 实例化时传入参数 > setOpt()设置 > config文件里设置
          * @warning 该方法仅供编辑器插件内部和编辑器初始化时调用，其他地方不能调用。
@@ -13902,7 +13902,7 @@ UE.plugins['pagebreak'] = function () {
     me.addInputRule(function(root){
         root.traversal(function(node){
             if(node.type == 'text' && node.data == me.options.pageBreakTag){
-                var hr = UE.uNode.createElement('<hr class="pagebreak" noshade="noshade" size="5" style="-webkit-user-select: none;">');
+                var hr = UE.uNode.createElement('<hr class="pagebreak" noshade="noshade" size="5" style="-webkit-product-select: none;">');
                 node.parentNode.insertBefore(hr,node);
                 node.parentNode.removeChild(node)
             }

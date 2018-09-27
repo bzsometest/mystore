@@ -1,4 +1,4 @@
-package com.bzchao.mystore.web.user;
+package com.bzchao.mystore.web.product;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;

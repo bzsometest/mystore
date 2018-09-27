@@ -1,5 +1,6 @@
 package com.bzchao.mystore.web;
 
+import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,10 +12,10 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-public class BaseServlet extends HttpServlet {
+public class BaseJsonServlet extends HttpServlet {
     public static final String REDIRECT = "redirect:";
 
-    private final static Logger logger = LoggerFactory.getLogger(BaseServlet.class);
+    private final static Logger logger = LoggerFactory.getLogger(BaseJsonServlet.class);
 
     /**
      * 通过method参数调用(反射)不同的处理方法
@@ -26,7 +27,7 @@ public class BaseServlet extends HttpServlet {
      */
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        logger.debug("请求数据：{},参数：{}", req.getRequestURI(), req.getQueryString());
+        logger.debug("请求数据：{},{}", req.getRequestURI(), req.getQueryString());
         req.setCharacterEncoding("utf-8");
         resp.setCharacterEncoding("utf-8");
         resp.setContentType("text/plain;charset=UTF-8");
@@ -37,22 +38,11 @@ public class BaseServlet extends HttpServlet {
         //2. 通过反射调用方法
         try {
             Method method = this.getClass().getMethod(methodName, HttpServletRequest.class, HttpServletResponse.class);
-            String view = (String) method.invoke(this, req, resp);
-
-            if (view != null) {
-                //是否有redirect:字符串
-                if (view.contains(REDIRECT)) {
-                    //redirect:login.jsp
-                    //重定向
-                    resp.sendRedirect(view.replaceAll(REDIRECT, ""));
-                    return;
-                } else {
-                    //请求转发
-                    req.getRequestDispatcher("/" + view + ".jsp").forward(req, resp);
-                    return;
-                }
-            }
-
+            Object object = method.invoke(this, req, resp);
+            String jsonString = JSON.toJSONString(object);
+            resp.getWriter().write(jsonString);
+            resp.getWriter().flush();
+            
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
             req.setAttribute("message", this.getClass().getName() + "中没有找到方法:" + methodName);

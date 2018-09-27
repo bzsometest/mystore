@@ -33,7 +33,7 @@
 <div class="row" style="width:1210px;margin:0 auto;">
     <div class="col-md-12">
         <ol class="breadcrumb">
-            <li><a href="#">首页</a></li>
+            <li><a href="javascript:;">首页</a></li>
         </ol>
     </div>
 
@@ -64,7 +64,7 @@
 
         <c:if test="${pageBean.currPage <= 1}">
             <li class="disabled">
-                <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+                <a href="javascript:;" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
             </li>
         </c:if>
 
@@ -89,7 +89,7 @@
         </c:if>
         <c:if test="${pageBean.currPage >= pageBean.totalPage}">
             <li class="disabled">
-                <a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span> </a>
+                <a href="javascript:;" aria-label="Next"><span aria-hidden="true">&raquo;</span> </a>
             </li>
         </c:if>
     </ul>

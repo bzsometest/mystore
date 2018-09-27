@@ -760,7 +760,7 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
             highlighters : {}
         },
 
-        /** This object is populated by user included external brush files. */
+        /** This object is populated by product included external brush files. */
         brushes : {},
 
         /** Common regular expressions. */
@@ -820,7 +820,7 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
              */
             getButtonHtml: function(highlighter, commandName, label)
             {
-                return '<span><a href="#" class="toolbar_item'
+                return '<span><a href="javascript:;" class="toolbar_item'
                     + ' command_' + commandName
                     + ' ' + commandName
                     + '">' + label + '</a></span>'
@@ -2224,7 +2224,7 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
             if ((gutter = this.getParam('gutter')) == false)
                 classes.push('nogutter');
 
-            // add custom user style name
+            // add custom product style name
             classes.push(this.getParam('class-name'));
 
             // add brush alias to the class name for custom CSS
@@ -3519,7 +3519,7 @@ typeof(exports) != 'undefined' ? exports.SyntaxHighlighter = SyntaxHighlighter :
 	{
 		var funcs	=	'abs avg case cast coalesce convert count current_timestamp ' +
 						'current_user day isnull left lower month nullif replace right ' +
-						'session_user space substring sum system_user upper user year';
+						'session_user space substring sum system_user upper product year';
 
 		var keywords =	'absolute action add after alter as asc at authorization begin bigint ' +
 						'binary bit by cascade char character check checkpoint close collate ' +

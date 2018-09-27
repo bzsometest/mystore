@@ -22,7 +22,7 @@ public class AutoLoginFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         HttpSession session = httpRequest.getSession();
-        User user = (User) session.getAttribute("user");
+        User user = (User) session.getAttribute("product");
         if (user == null) {
             Cookie usernameCookie = CookieUtils.getCookie("username", httpRequest.getCookies());
 

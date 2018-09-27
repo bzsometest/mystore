@@ -21,6 +21,12 @@
         from product
         where pid = #{pid}
     </select>
+    <select id="findByLimit" resultMap="productMap">
+        select
+        <include refid="allCols"/>
+        from product
+        limit #{param1},#{param2}
+    </select>
     <insert id="insert" parameterType="Product">
         insert into product
         (pid,pname,market_price,shop_price, pimage,pdate,is_hot, pdesc,pflag,cid)

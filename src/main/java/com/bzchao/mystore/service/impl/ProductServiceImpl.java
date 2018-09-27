@@ -116,6 +116,21 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> findByPage(int currentPage, int pageSize) {
+        currentPage = currentPage > 0 ? currentPage : 1;
+        pageSize = pageSize > 0 ? pageSize : 10;
+        int start = (currentPage - 1) * pageSize;
+
+        SqlSession sqlSession = MybatisUtil.getSessionFactory().openSession();
+        ProductDao productDao = sqlSession.getMapper(ProductDao.class);
+
+        List<Product> productList = productDao.findByLimit(start, pageSize);
+
+        sqlSession.close();
+        return productList;
+    }
+
+    @Override
     public List<Product> findByCidPage(String cid, int currentPage, int pageSize) {
 
         currentPage = currentPage > 0 ? currentPage : 1;
@@ -142,7 +157,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Test
     public void test() {
-        List<Product> productList = findHot();
+        List<Product> productList = findByPage(2,10);
         System.out.println(productList);
     }
 

@@ -1,4 +1,4 @@
-package com.bzchao.mystore.web.user;
+package com.bzchao.mystore.web.product;
 
 import com.bzchao.mystore.entity.Order;
 import com.bzchao.mystore.service.impl.OrderServiceImpl;

@@ -24,6 +24,8 @@ public interface ProductService {
 
     List<Product> findByPush(int state);
 
+    List<Product> findByPage(int page, int count);
+
     List<Product> findByCidPage(String pid, int page, int cout);
 
     Product findByPid(String pid);

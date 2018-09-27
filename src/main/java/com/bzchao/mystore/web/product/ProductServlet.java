@@ -1,4 +1,4 @@
-package com.bzchao.mystore.web.user;
+package com.bzchao.mystore.web.product;
 
 import com.alibaba.fastjson.JSON;
 import com.bzchao.mystore.entity.Category;

@@ -4,19 +4,19 @@
 
 <HTML>
 <HEAD>
+    <base href="${pageContext.request.contextPath}/">
     <meta http-equiv="Content-Language" content="zh-cn">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link href="${pageContext.request.contextPath}/css/Style1.css" rel="stylesheet" type="text/css"/>
-    <script language="javascript" src="${pageContext.request.contextPath}/js/public.js"></script>
     <script type="text/javascript">
         function addProduct() {
-            window.location.href = "${pageContext.request.contextPath}/admin/productServlet.action?method=addUI";
+            window.location.href = "${pageContext.request.contextPath}/admin/product/add.jsp";
         }
     </script>
 </HEAD>
 <body>
 <br>
-<form id="Form1" name="Form1" action="${pageContext.request.contextPath}/user/list.jsp" method="post">
+<form id="Form1" name="Form1">
     <table cellSpacing="1" cellPadding="0" width="100%" align="center" bgColor="#f5fafe" border="0">
         <TBODY>
         <tr>
@@ -63,91 +63,107 @@
                         </td>
                     </tr>
 
-                    <c:forEach items="${productList}" var="product">
-                        <tr onmouseover="this.style.backgroundColor = 'white'"
-                            onmouseout="this.style.backgroundColor = '#F5FAFE';">
-                            <td style="CURSOR: hand; HEIGHT: 22px" align="center"
-                                width="18%">
-                                    ${product.pid}
-                            </td>
-                            <td style="CURSOR: hand; HEIGHT: 22px" align="center"
-                                width="17%">
-                                    <%--图片地址是远程图片服务器--%>
-                                <c:if test="${fn:contains(product.pimage,'http')}">
-                                    <img width="40" height="45" src="${product.pimage}">
-                                </c:if>
-                                    <%--图片地址在本项目中--%>
-                                <c:if test="${!fn:contains(product.pimage,'http')}">
-                                    <img width="40" height="45"
-                                         src="${ pageContext.request.contextPath }/${product.pimage}">
-                                </c:if>
-                            </td>
-                            <td style="CURSOR: hand; HEIGHT: 22px" align="center"
-                                width="17%">
-                                    ${product.pname }
-                            </td>
-                            <td style="CURSOR: hand; HEIGHT: 22px" align="center"
-                                width="17%">
-                                    ${ product.shopPrice }
-                            </td>
-                            <td style="CURSOR: hand; HEIGHT: 22px" align="center"
-                                width="17%">
-                                <c:if test="${ product.isHot == 1 }">
-                                    是
-                                </c:if>
-                                <c:if test="${ product.isHot == 0 }">
-                                    否
-                                </c:if>
-                            </td>
+                    <tr v-for="product in pageBean.list" onmouseover="this.style.backgroundColor = 'white'"
+                        onmouseout="this.style.backgroundColor = '#F5FAFE';">
 
-                            <td align="center" style="HEIGHT: 22px">
-                                <a href="${pageContext.request.contextPath}/admin/productServlet.action?method=editUI&pid=${product.pid}">
-                                    <img src="${pageContext.request.contextPath}/images/i_edit.gif" border="0"
-                                         style="CURSOR: hand">
-                                </a>
-                            </td>
+                        <td style="CURSOR: hand; HEIGHT: 22px" align="center"
+                            width="18%">
+                            {{product.pid}}
+                        </td>
+                        <td style="CURSOR: hand; HEIGHT: 22px" align="center"
+                            width="17%">
+                            <img width="40" height="45" :src="product.pimage">
 
-                            <td align="center" style="HEIGHT: 22px">
-                                <a href="${pageContext.request.contextPath}/admin/productServlet.action?method=pushDown&pid=${product.pid}">
-                                    <img src="${pageContext.request.contextPath}/images/i_del.gif" width="16"
-                                         height="16" border="0" style="CURSOR: hand">
-                                </a>
-                            </td>
+                        </td>
+                        <td style="CURSOR: hand; HEIGHT: 22px" align="center"
+                            width="17%">
+                            {{ product.pname }}
+                        </td>
+                        <td style="CURSOR: hand; HEIGHT: 22px" align="center"
+                            width="17%">
+                            {{ product.shopPrice}}
+                        </td>
+                        <td style="CURSOR: hand; HEIGHT: 22px" align="center" width="17%">
+                            <span v-if="product.isHot == 1">
+                                是
+                            </span>
+                            <span v-else>
+                                否
+                            </span>
 
-                        </tr>
-                    </c:forEach>
+                        </td>
+
+                        <td align="center" style="HEIGHT: 22px">
+                            <a href="${pageContext.request.contextPath}/admin/productServlet.action?method=editUI&pid=${product.pid}">
+                                <img src="${pageContext.request.contextPath}/images/i_edit.gif" border="0"
+                                     style="CURSOR: hand">
+                            </a>
+                        </td>
+
+                        <td align="center" style="HEIGHT: 22px">
+                            <a href="${pageContext.request.contextPath}/admin/productServlet.action?method=pushDown&pid=${product.pid}">
+                                <img src="${pageContext.request.contextPath}/images/i_del.gif" width="16"
+                                     height="16" border="0" style="CURSOR: hand">
+                            </a>
+                        </td>
+                    </tr>
                 </table>
             </td>
         </tr>
         <tr align="center">
             <td colspan="7">
-                第${ pageBean.currPage }/${ pageBean.totalPage }页 &nbsp; &nbsp; &nbsp;
-                总记录数:${ pageBean.totalCount } &nbsp; 每页显示:${ pageBean.pageSize }
-                <c:if test="${ pageBean.currPage != 1 }">
-                    <a href="${ pageContext.request.contextPath }/AdminProductServlet?method=${method}&currPage=1">首页</a>|
-                    <a href="${ pageContext.request.contextPath }/AdminProductServlet?method=${method}&currPage=${ pageBean.currPage - 1}">上一页</a>|
-                </c:if>
-                &nbsp; &nbsp;
+                第{{ pageBean.currPage }} / {{ pageBean.totalPage }} 页 &nbsp; &nbsp; &nbsp;
+                总记录数:{{ pageBean.totalCount }} &nbsp; 每页显示: {{ pageBean.pageSize }}
 
-                <c:forEach var="i" begin="1" end="${ pageBean.totalPage }">
-                    <c:if test="${ pageBean.currPage == i }">
-                        [${ i }]
-                    </c:if>
-                    <c:if test="${ pageBean.currPage != i }">
-                        <a href="${ pageContext.request.contextPath }/AdminProductServlet?method=${method}&currPage=${ i}">[${ i }]</a>
-                    </c:if>
-                </c:forEach>
+                <span v-if="pageBean.currPage > 1">
+                    <a href="javascript:;" @click="pageTo(1)">首页</a>|
+                    <a href="javascript:;" @click="pageTo(pageBean.currPage + 1)">上一页</a>|
+                </span>
 
                 &nbsp; &nbsp;
-                <c:if test="${ pageBean.currPage != pageBean.totalPage }">
-                    <a href="${ pageContext.request.contextPath }/AdminProductServlet?method=${method}&currPage=${ pageBean.currPage + 1}">下一页</a>|
-                    <a href="${ pageContext.request.contextPath }/AdminProductServlet?method=${method}&currPage=${ pageBean.totalPage}">尾页</a>|
-                </c:if>
+
+                <span v-for="currPage in pageBean.totalPage">
+                     <a href="javascript:;" @click="pageTo(currPage)"> [{{ currPage }}] </a>
+                </span>
+
+                &nbsp; &nbsp;
+
+                <span v-if="pageBean.currPage < pageBean.totalPage">
+                    <a href="javascript:;" @click="pageTo(pageBean.currPage + 1)">下一页</a>|
+                    <a href="javascript:;" v-on:click="pageTo(pageBean.totalPage)">尾页</a>|
+                </span>
+
             </td>
         </tr>
         </TBODY>
     </table>
 </form>
+
+<script src="js/jquery-1.11.3.min.js" type="application/javascript"></script>
+<script src="js/axios.min.js" type="application/javascript"></script>
+<script src="js/vue.js" type="application/javascript"></script>
+
+<script type="application/javascript">
+    var vue = new Vue({
+        el: "#Form1",
+        data: {
+            pageBean: ""
+        },
+        methods: {
+            pageTo: function (page) {
+                axios({
+                    url: "admin/productJsonServlet.action?method=productByPage&count=10&page=" + page,
+                }).then(function (response) {
+                    vue.pageBean = response.data;
+                });
+            }
+        },
+        created: function () {
+            //这里必须使用this，不能使用对象名，对象还未初始化完成
+            this.pageTo(1);
+        }
+    });
+</script>
 </body>
 </HTML>
 

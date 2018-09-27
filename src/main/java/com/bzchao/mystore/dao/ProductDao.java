@@ -24,7 +24,9 @@ public interface ProductDao {
 
     List<Product> findByPush(int state);
 
-    List<Product> findByCidLimit(String pid, int start, int count);
+    List<Product> findByCidLimit(String cid, int start, int count);
+
+    List<Product> findByLimit(int start, int count);
 
     Product findByPid(String pid);
 }

@@ -176,7 +176,7 @@ INSERT INTO `product` VALUES ('8', 'NUU NU5', '1288', '1190', 'products/1/c_0008
 INSERT INTO `product` VALUES ('9', '乐视（Letv）乐1pro（X800）', '2399', '2299', 'products/1/c_0009.jpg', '2015-11-02', '0', '乐视（Letv）乐1pro（X800）64GB 金色 移动联通4G手机 双卡双待乐视生态UI+5.5英寸2K屏+高通8核处理器+4GB运行内存+64GB存储+1300万摄像头！', '0', '1');
 
 -- ----------------------------
--- Table structure for user
+-- Table structure for product
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
@@ -194,7 +194,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of user
+-- Records of product
 -- ----------------------------
 INSERT INTO `user` VALUES ('23200a80c2f64f3daf870fff43b1e07e', 'eee', 'eee', '吴青龙2', '153355720@qq.com', null, '2018-09-07', 'option1', '1', null);
 INSERT INTO `user` VALUES ('2f819c41153941268f19a8e6d23b9fc8', 'mark', '12345', '吴青龙', '153355720@qq.com', null, '2018-09-23', 'option2', '1', null);
